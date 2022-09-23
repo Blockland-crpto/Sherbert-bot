@@ -3,13 +3,15 @@ const { token } = require('./config.json');
 const path = require('node:path');
 const fs = require('node:fs');
 
+const herbbotVersion = '1.0.0';
+exports.herbbotVersion = herbbotVersion;
+
 const embedColor = 0x0099F;
 exports.embedColor = embedColor;
-
 const embedAuthor = 'Herbbot';
 exports.embedAuthor = embedAuthor;
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences] });
 exports.client = client;
 
 const eventsPath = path.join(__dirname, 'events');
