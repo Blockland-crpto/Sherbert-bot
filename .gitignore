@@ -6,3 +6,5 @@ replit.nix
 .vscode
 .eslintrc.json
 cpuprofiles
+debug.log
+*.cpuprofile

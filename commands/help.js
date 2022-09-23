@@ -92,23 +92,23 @@ module.exports = {
 			)
 			.setTimestamp();
 
-		if (selectedCommand === null || selectedCommand === undefined || selectedCommand === 'cmdlist') {
-			await interaction.reply({ embeds: [commandListEmbed] });
-		}
-		else if (selectedCommand === 'ping') {
+
+		switch (selectedCommand) {
+		case 'ping':
 			await interaction.reply({ embeds: [pingInfoEmbed] });
-		}
-		else if (selectedCommand === 'help') {
+			break;
+		case 'help':
 			await interaction.reply({ embeds: [helpInfoEmbed] });
-		}
-		else if (selectedCommand === 'serverinfo') {
+			break;
+		case 'serverinfo':
 			await interaction.reply({ embeds: [serverinfInfoEmbed] });
-		}
-		else if (selectedCommand === 'userinfo') {
+			break;
+		case 'userinfo':
 			await interaction.reply({ embeds: [userinfInfoEmbed] });
-		}
-		else {
-			await interaction.reply({ content: 'Were sorry, but a error occured with the help command, please try again later', ephemeral: true });
+			break;
+		default:
+			await interaction.reply({ embeds: [commandListEmbed] });
+			break;
 		}
 	},
 };
