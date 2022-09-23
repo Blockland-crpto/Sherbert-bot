@@ -3,3 +3,5 @@ config.json
 .config
 .replit
 replit.nix
+.vscode
+.eslintrc.json
