@@ -5,7 +5,6 @@ module.exports = {
 		.setName('help')
 		.setDescription('this command is were you can get info on sherbertbots commands'),
 	async execute(interaction, client) {
-		const selectedCommand = interaction.options.getString('command');
 		const embedColor = '#7F8C8D';
 		const SherbertBotVersion = '1.0.0';
 		const embedAuthor = 'SherbertBot';
@@ -46,9 +45,9 @@ module.exports = {
 							description: 'Get information on the userinfo command',
 							value: 'userinfo',
 						},
-					)
-			)
-		
+					),
+			);
+
 		// defines the command list embeded message
 		const commandListEmbed = new EmbedBuilder()
 			.setColor(embedColor)
@@ -140,11 +139,13 @@ module.exports = {
 
 		await interaction.reply({ embeds: [commandListEmbed], components: [row] });
 
-		client.on('interactionCreate', async interaction => {
-			if (!interaction.isSelectMenu()) return;
+		client.on('interactionCreate', async inter => {
+			if (!inter.isSelectMenu()) return;
 
-			if (interaction.values === 'ban') {
-				await interaction.update({ content: [banInfoEmbed], components: [row] });
+			console.log(inter.values);
+
+			if (inter.values[0] === 'ban') {
+				await inter.update({ embeds: [banInfoEmbed], components: [row] });
 			}
 		});
 
