@@ -1,5 +1,6 @@
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const { token } = require('./config.json');
+const process = require('node:process');
 const path = require('node:path');
 const fs = require('node:fs');
 
@@ -45,3 +46,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(token);
+
+process.on('unhandledRejection', error => {
+	console.error('A unhandledRejection occured', error);
+});
