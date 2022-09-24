@@ -11,7 +11,11 @@ module.exports = {
 	async execute(interaction, client) {
 		const user = interaction.options.getUser('user');
 		const userm = interaction.options.getMember('user');
-		if (interaction.user.id === user.id) {
+		if (!userm.manageable) {
+			await interaction.reply({ content: `Were sorry, but you cannot ban ${user}, they have permissions that are greater then SherbertBot, please try again`, ephemeral: true });
+			return 1;
+		}
+		else if (interaction.user.id === user.id) {
 			await interaction.reply({ content: 'Were sorry, but you cannot ban yourself, please try again', ephemeral: true });
 			return 1;
 		}
@@ -23,8 +27,12 @@ module.exports = {
 			await interaction.reply({ content: 'Were sorry, but you cannot ban SherbertBot, please try again', ephemeral: true });
 			return 1;
 		}
-		else if (userm.permissions.has(PermissionsBitField.Flags.Administrator)) {
-			await interaction.reply({ content: `Were sorry, but you cannot ban ${user}, they have Admin, please try again`, ephemeral: true });
+		else if (userm === null) {
+			await interaction.reply({ content: 'Were sorry, but you cannot ban a user thats not part of this guild, please try again', ephemeral: true });
+			return 1;
+		}
+		else if (!userm.bannable) {
+			await interaction.reply({ content: `Were sorry, but you cannot ban ${user}, they have permissions that are greater then SherbertBot, please try again`, ephemeral: true });
 			return 1;
 		}
 		else {

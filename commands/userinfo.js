@@ -18,6 +18,8 @@ module.exports = {
 			.addFields(
 				{ name: `${targetUser.username}'s tag`, value: `${targetUser.tag}`, inline: true },
 				{ name: `${targetUser.username}'s ID`, value: `${targetUser.id}`, inline: true },
+				{ name: `${targetUser.username}'s joined at:`, value: `${targetUser.createdAt}` },
+				{ name: 'Bot?', value: `${targetUser.bot}` },
 			)
 			.setTimestamp()
 			.setFooter({ text: 'SherbertBot version v1.0.0' });
