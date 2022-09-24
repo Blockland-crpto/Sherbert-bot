@@ -4,7 +4,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('serverinfo')
 		.setDescription('Get info about the server your in'),
-	async execute(interaction) {
+	async execute(interaction, client) {
 		const serverInfoEmbed = new EmbedBuilder()
 			.setColor(0x0099F)
 			.setTitle('server information')
@@ -18,5 +18,9 @@ module.exports = {
 			.setTimestamp()
 			.setFooter({ text: 'SherbertBot version v1.0.0' });
 		await interaction.reply({ embeds: [serverInfoEmbed], ephemeral: true });
+
+		client.on('shardError', error => {
+			console.error('Websocket encountered an error', error);
+		});
 	},
 };

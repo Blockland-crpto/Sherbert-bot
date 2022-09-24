@@ -10,12 +10,13 @@ module.exports = {
 				.setRequired(false)
 				.addChoices(
 					{ name: 'command list', value: 'cmdlist' },
+					{ name: '/ban', value: 'ban' },
 					{ name: '/ping', value: 'ping' },
 					{ name: '/help', value: 'help' },
 					{ name: '/serverinfo', value: 'serverinfo' },
 					{ name: '/userinfo', value: 'userinfo' },
 				)),
-	async execute(interaction) {
+	async execute(interaction, client) {
 		const selectedCommand = interaction.options.getString('command');
 		const embedColor = '#7F8C8D';
 		const SherbertBotVersion = '1.0.0';
@@ -32,6 +33,7 @@ module.exports = {
 				{ name: '2. /serverinfo', value: 'gives you information about the server' },
 				{ name: '3. /userinfo', value: 'gives you information about a user' },
 				{ name: '4. /help', value: 'this command' },
+				{ name: '5. /ban', value: 'bans a user from the server' },
 			)
 			.setTimestamp()
 			.setFooter({ text: `${embedAuthor} version ${SherbertBotVersion}` });
@@ -92,6 +94,21 @@ module.exports = {
 			)
 			.setTimestamp();
 
+		// defines userinfos embeded message
+		const banInfoEmbed = new EmbedBuilder()
+			.setColor(embedColor)
+			.setTitle('ban command')
+			.setAuthor({ name: embedAuthor })
+			.setDescription('Info on the ban command')
+			.addFields(
+				{ name: 'Usage', value: 'type /ban and in the "user" option, type the user you want to ban from the server' },
+				{ name: ':rotating_light: Warning :rotating_light:', value: 'this action will prevent the user from coming back into the server unless you unban them!' },
+				{ name: 'Arguments', value: 'one argument' },
+				{ name: 'Info', value: 'ban is a command thats built into SherbertBot for helping admins maintain order in there servers through discord banning system, once a user has been banned, they cannot join back into the server unless the ban is removed, which can be done by using the /unban command, you CAN NOT ban SherbertBot or anyone with administrator privileges' },
+				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
+			)
+			.setTimestamp();
+
 
 		switch (selectedCommand) {
 		case 'ping':
@@ -106,9 +123,16 @@ module.exports = {
 		case 'userinfo':
 			await interaction.reply({ embeds: [userinfInfoEmbed] });
 			break;
+		case 'ban':
+			await interaction.reply({ embeds: [banInfoEmbed] });
+			break;
 		default:
 			await interaction.reply({ embeds: [commandListEmbed] });
 			break;
 		}
+
+		client.on('shardError', error => {
+			console.error('Websocket encountered an error', error);
+		});
 	},
 };

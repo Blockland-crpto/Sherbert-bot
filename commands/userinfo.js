@@ -8,7 +8,7 @@ module.exports = {
 			opt.setName('user')
 				.setDescription('in this option, select the user you want info about')
 				.setRequired(true)),
-	async execute(interaction) {
+	async execute(interaction, client) {
 		const targetUser = interaction.options.getUser('user');
 		const userInfoEmbed = new EmbedBuilder()
 			.setColor(0x0099F)
@@ -22,5 +22,9 @@ module.exports = {
 			.setTimestamp()
 			.setFooter({ text: 'SherbertBot version v1.0.0' });
 		await interaction.reply({ embeds: [userInfoEmbed], ephemeral: true });
+
+		client.on('shardError', error => {
+			console.error('Websocket encountered an error', error);
+		});
 	},
 };

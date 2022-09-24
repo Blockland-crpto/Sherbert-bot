@@ -3,7 +3,7 @@ const { token } = require('./config.json');
 const path = require('node:path');
 const fs = require('node:fs');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildBans] });
 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
@@ -30,13 +30,13 @@ for (const file of commandFiles) {
 }
 
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isChatInputCommand()) return;
+	if (!interaction.isChatInputCommand() && !interaction.isContextMenuCommand()) return;
 	const command = interaction.client.commands.get(interaction.commandName);
 
 	if (!command) return;
 
 	try {
-		await command.execute(interaction);
+		await command.execute(interaction, client);
 	}
 	catch (error) {
 		console.error(error);
