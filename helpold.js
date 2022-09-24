@@ -1,54 +1,27 @@
-const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, SelectMenuBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('help')
-		.setDescription('this command is were you can get info on sherbertbots commands'),
+		.setDescription('this command is were you can get info on sherbertbots commands')
+		.addStringOption(opt =>
+			opt.setName('command')
+				.setDescription('if you want more info on a specific command, type the command here')
+				.setRequired(false)
+				.addChoices(
+					{ name: 'command list', value: 'cmdlist' },
+					{ name: '/ban', value: 'ban' },
+					{ name: '/ping', value: 'ping' },
+					{ name: '/help', value: 'help' },
+					{ name: '/serverinfo', value: 'serverinfo' },
+					{ name: '/userinfo', value: 'userinfo' },
+				)),
 	async execute(interaction, client) {
 		const selectedCommand = interaction.options.getString('command');
 		const embedColor = '#7F8C8D';
 		const SherbertBotVersion = '1.0.0';
 		const embedAuthor = 'SherbertBot';
 
-		const row = new ActionRowBuilder()
-			.addComponents(
-				new SelectMenuBuilder()
-					.setCustomId('helpselect')
-					.setPlaceholder('Please select a command to view')
-					.addOptions(
-						{
-							label: 'command list',
-							description: 'Get a list of SherbertBots commands',
-							value: 'cmdlist',
-						},
-						{
-							label: '/help',
-							description: 'Get information on the help command',
-							value: 'help',
-						},
-						{
-							label: '/ping',
-							description: 'Get information on the ping command',
-							value: 'ping',
-						},
-						{
-							label: '/ban',
-							description: 'Get information on the ban command',
-							value: 'ban',
-						},
-						{
-							label: '/serverinfo',
-							description: 'Get information on the serverinfo command',
-							value: 'serverinfo',
-						},
-						{
-							label: '/userinfo',
-							description: 'Get information on the userinfo command',
-							value: 'userinfo',
-						},
-					)
-			)
-		
 		// defines the command list embeded message
 		const commandListEmbed = new EmbedBuilder()
 			.setColor(embedColor)
@@ -61,7 +34,6 @@ module.exports = {
 				{ name: '3. /userinfo', value: 'gives you information about a user' },
 				{ name: '4. /help', value: 'this command' },
 				{ name: '5. /ban', value: 'bans a user from the server' },
-				{ name: '\u200B', value: 'use the selection box below to view info about a command' },
 			)
 			.setTimestamp()
 			.setFooter({ text: `${embedAuthor} version ${SherbertBotVersion}` });
@@ -138,15 +110,26 @@ module.exports = {
 			.setTimestamp();
 
 
-		await interaction.reply({ embeds: [commandListEmbed], components: [row] });
-
-		client.on('interactionCreate', async interaction => {
-			if (!interaction.isSelectMenu()) return;
-
-			if (interaction.values === 'ban') {
-				await interaction.update({ content: [banInfoEmbed], components: [row] });
-			}
-		});
+		switch (selectedCommand) {
+		case 'ping':
+			await interaction.reply({ embeds: [pingInfoEmbed] });
+			break;
+		case 'help':
+			await interaction.reply({ embeds: [helpInfoEmbed] });
+			break;
+		case 'serverinfo':
+			await interaction.reply({ embeds: [serverinfInfoEmbed] });
+			break;
+		case 'userinfo':
+			await interaction.reply({ embeds: [userinfInfoEmbed] });
+			break;
+		case 'ban':
+			await interaction.reply({ embeds: [banInfoEmbed] });
+			break;
+		default:
+			await interaction.reply({ embeds: [commandListEmbed] });
+			break;
+		}
 
 		client.on('shardError', error => {
 			console.error('Websocket encountered an error', error);
