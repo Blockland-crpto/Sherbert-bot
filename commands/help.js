@@ -8,7 +8,6 @@ module.exports = {
 		const embedColor = '#7F8C8D';
 		const SherbertBotVersion = '1.0.0';
 		const embedAuthor = 'SherbertBot';
-		let currentCommand;
 		const row1 = new ActionRowBuilder()
 			.addComponents(
 				new SelectMenuBuilder()
@@ -55,6 +54,16 @@ module.exports = {
 							description: 'Get information on the kick command',
 							value: 'kick',
 						},
+						{
+							label: 'Back to help',
+							description: 'Go back to the main help app',
+							value: 'back-to-help',
+						},
+						{
+							label: 'Close help',
+							description: 'Exit the help app',
+							value: 'exit-help',
+						},
 					),
 			);
 
@@ -64,17 +73,9 @@ module.exports = {
 					.setCustomId('closehelp')
 					.setLabel('Close Help')
 					.setStyle(ButtonStyle.Danger),
-			);
-
-		const row3 = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-					.setCustomId('closehelp')
-					.setLabel('Close Help')
-					.setStyle(ButtonStyle.Danger),
 				new ButtonBuilder()
 					.setCustomId('utils')
-					.setLabel('Utilites')
+					.setLabel('Utility Commands')
 					.setStyle(ButtonStyle.Secondary),
 			);
 
@@ -211,7 +212,7 @@ module.exports = {
 		collector.on('collect', i => {
 			if (i.user.id === interaction.user.id) {
 				if (i.customId === 'utils') {
-					i.update({ embeds: [utilListEmbed], components: [row1, row2] });
+					i.update({ embeds: [utilListEmbed], components: [row1] });
 				}
 				else if (i.customId === 'closehelp') {
 					interaction.deleteReply();
@@ -219,7 +220,7 @@ module.exports = {
 				return 0;
 			}
 			else {
-				i.reply({ content: 'Were sorry but this app is not', ephemeral: true });
+				i.reply({ content: 'Were sorry but this app is not being used by you, please create your own help app by using the /help command', ephemeral: true });
 				return 0;
 			}
 		});
@@ -227,44 +228,49 @@ module.exports = {
 		client.on('interactionCreate', async inter => {
 			if (!inter.isSelectMenu()) return;
 
+			if (!inter.user.id === interaction.user.id) {
+				inter.reply({ content: 'Were sorry but this app is not being used by you, please create your own help app by using the /help command', ephemeral: true });
+				return 0;
+			}
+
 			if (inter.values[0] === 'cmdlist') {
-				await inter.update({ embeds: [utilListEmbed], components: [row1, row2] });
-				currentCommand = 'cmdlist';
+				await inter.update({ embeds: [utilListEmbed], components: [row1] });
 				return 0;
 			}
 			else if (inter.values[0] === 'ban') {
-				await inter.update({ embeds: [banInfoEmbed], components: [row1, row2] });
-				currentCommand = 'ban';
+				await inter.update({ embeds: [banInfoEmbed], components: [row1] });
 				return 0;
 			}
 			else if (inter.values[0] === 'unban') {
-				await inter.update({ embeds: [unbanInfoEmbed], components: [row1, row2] });
-				currentCommand = 'unban';
+				await inter.update({ embeds: [unbanInfoEmbed], components: [row1] });
 				return 0;
 			}
 			else if (inter.values[0] === 'ping') {
-				await inter.update({ embeds: [pingInfoEmbed], components: [row1, row2] });
-				currentCommand = 'ping';
+				await inter.update({ embeds: [pingInfoEmbed], components: [row1] });
 				return 0;
 			}
 			else if (inter.values[0] === 'help') {
-				await inter.update({ embeds: [helpInfoEmbed], components: [row1, row2] });
-				currentCommand = 'help';
+				await inter.update({ embeds: [helpInfoEmbed], components: [row1] });
 				return 0;
 			}
 			else if (inter.values[0] === 'serverinfo') {
-				await inter.update({ embeds: [serverinfInfoEmbed], components: [row1, row2] });
-				currentCommand = 'serverinfo';
+				await inter.update({ embeds: [serverinfInfoEmbed], components: [row1] });
 				return 0;
 			}
 			else if (inter.values[0] === 'userinfo') {
-				await inter.update({ embeds: [userinfInfoEmbed], components: [row1, row2] });
-				currentCommand = 'userinfo';
+				await inter.update({ embeds: [userinfInfoEmbed], components: [row1] });
 				return 0;
 			}
 			else if (inter.values[0] === 'kick') {
-				await inter.update({ embeds: [kickInfoEmbed], components: [row1, row2] });
-				currentCommand = 'kick';
+				await inter.update({ embeds: [kickInfoEmbed], components: [row1] });
+				return 0;
+			}
+			else if (inter.values[0] === 'back-to-help') {
+				await inter.update({ embeds: [homeEmbed], components: [row2] });
+				return 0;
+			}
+			else if (inter.values[0] === 'exit-help') {
+				interaction.deleteReply();
 				return 0;
 			}
 			
