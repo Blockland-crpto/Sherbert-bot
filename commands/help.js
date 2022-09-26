@@ -4,204 +4,204 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('help')
 		.setNameLocalizations({
-			de: 'hilfe',
-			es: 'ayuda',
-			fr: 'aider',
+			'de': 'hilfe',
+			'es-ES': 'ayuda',
+			'fr': 'aider',
 		})
-		.setDescription('this command is were you can get info on sherbert bots commands')
+		.setDescription('The help app for Sherbertbot')
 		.setDescriptionLocalizations({
-			de: 'In diesem Befehl erhalten Sie Informationen zu Sherbert-Bots-Befehlen',
-			es: 'este comando es donde puede obtener información sobre los comandos de los bots sherbert',
-			fr: `cette commande est l'endroit où vous pouvez obtenir des informations sur les commandes de sherbert bots`,
+			'de': 'die Hilfe-App für Sherbertbot',
+			'es-ES': 'la aplicación de ayuda para Sherbertbot',
+			'fr': 'il aide l\'application pour Sherbertbot',
 		}),
 	async execute(interaction, client) {
 		const embedColor = '#7F8C8D';
 		const SherbertBotVersion = '1.0.0';
 		const embedAuthor = 'SherbertBot';
 		const placeholderLocale = {
-			de: 'Bitte wählen Sie einen Dienstprogrammbefehl aus, um ihn anzuzeigen',
-			esES: 'Seleccione un comando de utilidad para ver',
-			fr: `Veuillez sélectionner une commande d'utilitaire pour afficher`,
+			'de': 'Bitte wählen Sie einen Dienstprogrammbefehl aus, um ihn anzuzeigen',
+			'es-ES': 'Seleccione un comando de utilidad para ver',
+			'fr': 'Veuillez sélectionner une commande d\'utilitaire pour afficher',
 		};
 		const commandListLocale = {
-			de: 'Befehlsliste',
-			esES: 'lista de comandos',
-			fr: 'liste de commandes',
+			'de': 'Befehlsliste',
+			'es-ES': 'lista de comandos',
+			'fr': 'liste de commandes',
 		};
 		const commandListDescSelectLocale = {
-			de: 'Holen Sie sich eine Liste von Sherbert Bots-Befehlen',
-			es: 'Obtenga una lista de comandos de Sherbert Bots',
-			fr: 'Obtenir une liste des commandes Sherbert Bots',
+			'de': 'Holen Sie sich eine Liste von Sherbert Bots-Befehlen',
+			'es-ES': 'Obtenga una lista de comandos de Sherbert Bots',
+			'fr': 'Obtenir une liste des commandes Sherbert Bots',
 		};
 		const helpSelectDescLocale = {
-			de: 'Informieren Sie sich über den Hilfebefehl',
-			es: 'Obtener información sobre el comando de ayuda',
-			fr: `Obtenir des informations sur la commande d'aide`,
+			'de': 'Informieren Sie sich über den Hilfebefehl',
+			'es-ES': 'Obtener información sobre el comando de ayuda',
+			'fr': 'Obtenir des informations sur la commande d\'aide',
 		};
 		const pingSelectDescLocale = {
-			de: 'Informieren Sie sich über den Ping-Befehl',
-			es: 'Obtener información sobre el comando ping',
-			fr: 'Obtenir des informations sur la commande ping',
+			'de': 'Informieren Sie sich über den Ping-Befehl',
+			'es-ES': 'Obtener información sobre el comando ping',
+			'fr': 'Obtenir des informations sur la commande ping',
 		};
 		const banSelectLabelLocale = {
-			de: '/verbieten',
-			es: '/prohibir',
-			fr: '/interdire',
+			'de': '/verbieten',
+			'es-ES': '/prohibir',
+			'fr': '/interdire',
 		};
 		const banSelectDescLocale = {
-			de: 'Informieren Sie sich über den verbieten-Befehl',
-			es: 'Obtener información sobre el comando de prohibir',
-			fr: `Obtenir des informations sur la commande d'interdiction`,
+			'de': 'Informieren Sie sich über den verbieten-Befehl',
+			'es-ES': 'Obtener información sobre el comando de prohibir',
+			'fr': 'Obtenir des informations sur la commande d\'interdiction',
 		};
 		const unbanSelectDescLocale = {
-			de: 'Informieren Sie sich über den Unban-Befehl',
-			es: 'Obtener información sobre el comando de desbaneo',
-			fr: `Obtenir des informations sur la commande unban`,
+			'de': 'Informieren Sie sich über den Unban-Befehl',
+			'es-ES': 'Obtener información sobre el comando de desbaneo',
+			'fr': 'Obtenir des informations sur la commande unban',
 		};
 		const serverinfoSelectDescLocale = {
-			de: 'Rufen Sie Informationen zum Befehl serverinfo ab',
-			es: 'Obtener información sobre el comando serverinfo',
-			fr: 'Obtenir des informations sur la commande serverinfo',
+			'de': 'Rufen Sie Informationen zum Befehl serverinfo ab',
+			'es-ES': 'Obtener información sobre el comando serverinfo',
+			'fr': 'Obtenir des informations sur la commande serverinfo',
 		};
 		const userinfoSelectDescLocale = {
-			de: 'Rufen Sie Informationen über den Befehl userinfo ab',
-			es: 'Obtener información sobre el comando userinfo',
-			fr: 'Obtenir des informations sur la commande userinfo',
+			'de': 'Rufen Sie Informationen über den Befehl userinfo ab',
+			'es-ES': 'Obtener información sobre el comando userinfo',
+			'fr': 'Obtenir des informations sur la commande userinfo',
 		};
 		const kickSelectDescLocale = {
-			de: 'Informieren Sie sich über den Kick-Befehl',
-			es: 'Obtener información sobre el comando de patada',
-			fr: 'Obtenir des informations sur la commande kick',
+			'de': 'Informieren Sie sich über den Kick-Befehl',
+			'es-ES': 'Obtener información sobre el comando de patada',
+			'fr': 'Obtenir des informations sur la commande kick',
 		};
 		const backtomainSelectLocale = {
-			de: 'Zurück zum Hauptmenü',
-			es: 'Volver al menú principal',
-			fr: 'Retour au menu principal',
+			'de': 'Zurück zum Hauptmenü',
+			'es-ES': 'Volver al menú principal',
+			'fr': 'Retour au menu principal',
 		};
 		const backtomainSelectDescLocale = {
-			de: 'Gehen Sie zurück zum Hauptmenü der Hilfe-App',
-			es: 'Volver al menú principal de la aplicación de ayuda',
-			fr: `Revenir au menu principal de l'application d'aide`,
+			'de': 'Gehen Sie zurück zum Hauptmenü der Hilfe-App',
+			'es-ES': 'Volver al menú principal de la aplicación de ayuda',
+			'fr': 'Revenir au menu principal de l\'application d\'aide',
 		};
 		const exithelpSelectLocale = {
-			de: 'Hilfe schließen',
-			es: 'Cerrar ayuda',
-			fr: `Fermer l'aide`
+			'de': 'Hilfe schließen',
+			'es-ES': 'Cerrar ayuda',
+			'fr': 'Fermer l\'aide',
 		};
 		const exithelpSelectDescLocale = {
-			de: 'Beenden Sie die Hilfe-App',
-			es: 'Salir de la aplicación de ayuda',
-			fr: `Quitter l'application d'aide`
+			'de': 'Beenden Sie die Hilfe-App',
+			'es-ES': 'Salir de la aplicación de ayuda',
+			'fr': 'Quitter l\'application d\'aide',
 		};
 		const closehelpButtonLabelLocale = {
-			de: 'Hilfe schließen',
-			es: 'Cerrar Ayuda',
-			fr: `Fermer l'aide`,
+			'de': 'Hilfe schließen',
+			'es-ES': 'Cerrar Ayuda',
+			'fr': 'Fermer l\'aide',
 		};
 		const utilshelpButtonLabelLocale = {
-			de: 'Utility-Befehle',
-			es: 'Comandos de utilidad',
-			fr: 'Commandes utilitaires',
+			'de': 'Utility-Befehle',
+			'es-ES': 'Comandos de utilidad',
+			'fr': 'Commandes utilitaires',
 		};
 		const homeEmbedTitleLocale = {
-			de: 'Hilfe',
-			es: 'Ayuda',
-			fr: 'Aider'.
-		}
+			'de': 'Hilfe',
+			'es-ES': 'Ayuda',
+			'fr': 'Aider',
+		};
 		const homeEmbedDescLocale = {
-			de: 'Hilfe-App:\n Willkommen bei der SherbertBots-Hilfe-App. Bitte wählen Sie eine Kategorie aus, zu der Sie Hilfe wünschen!',
-			es: 'Aplicación de ayuda:\n Bienvenido a la aplicación de ayuda de SherbertBots, seleccione una categoría sobre la que desee obtener ayuda.',
-			fr: `Application d'aide : \n Bienvenue dans l'application d'aide de SherbertBots, veuillez sélectionner une catégorie pour laquelle vous souhaitez obtenir de l'aide !`
+			'de': 'Hilfe-App:\n Willkommen bei der SherbertBots-Hilfe-App. Bitte wählen Sie eine Kategorie aus, zu der Sie Hilfe wünschen!',
+			'es-ES': 'Aplicación de ayuda:\n Bienvenido a la aplicación de ayuda de SherbertBots, seleccione una categoría sobre la que desee obtener ayuda.',
+			'fr': 'Application d\'aide : \n Bienvenue dans l\'application d\'aide de SherbertBots, veuillez sélectionner une catégorie pour laquelle vous souhaitez obtenir de l\'aide !',
 		};
 		const versionFootLocale = {
-			de: `${embedAuthor}-version-${SherbertBotVersion}`,
-			es: `${embedAuthor} versión ${SherbertBotVersion}`,
-			fr: `${embedAuthor} version ${SherbertBotVersion}`,
+			'de': `${embedAuthor}-version-${SherbertBotVersion}`,
+			'es-ES': `${embedAuthor} versión ${SherbertBotVersion}`,
+			'fr': `${embedAuthor} version ${SherbertBotVersion}`,
 		};
 		const utilListTitleLocale = {
-			de: 'Befehlsliste der Dienstprogramme',
-			es: 'Lista de comandos de utilidades',
-			fr: 'Liste des commandes des utilitaires',
+			'de': 'Befehlsliste der Dienstprogramme',
+			'es-ES': 'Lista de comandos de utilidades',
+			'fr': 'Liste des commandes des utilitaires',
 		};
 		const utilListDescLocale = {
-			de: 'Hier ist eine Liste von SherbertBots-Befehlen in der Kategorie Dienstprogramme',
-			es: 'Aquí hay una lista de comandos de SherbertBots en la categoría de utilidades',
-			fr: 'Voici une liste des commandes SherbertBots dans la catégorie utilitaires',
-		}
+			'de': 'Hier ist eine Liste von SherbertBots-Befehlen in der Kategorie Dienstprogramme',
+			'es-ES': 'Aquí hay una lista de comandos de SherbertBots en la categoría de utilidades',
+			'fr': 'Voici une liste des commandes SherbertBots dans la catégorie utilitaires',
+		};
 		const utilListEmbedPingInfoLocale = {
-			de: 'vous donne le ping de SherbertBot (commande développeur)',
-			es: 'te da el ping de SherbertBot (comando de desarrollador)',
-			fr: 'vous donne le ping de SherbertBot (commande développeur)',
+			'de': 'vous donne le ping de SherbertBot (commande développeur)',
+			'es-ES': 'te da el ping de SherbertBot (comando de desarrollador)',
+			'fr': 'vous donne le ping de SherbertBot (commande développeur)',
 		};
 		const utilListEmbedServerinfoInfoLocale = {
-			de: 'gibt Ihnen Informationen über den Server',
-			es: 'te da información sobre el servidor',
-			fr: 'vous donne des informations sur le serveur',
+			'de': 'gibt Ihnen Informationen über den Server',
+			'es-ES': 'te da información sobre el servidor',
+			'fr': 'vous donne des informations sur le serveur',
 		};
 		const utilListEmbedUserinfoInfoLocale = {
-			de: 'gibt Ihnen Informationen über einen Benutzer',
-			es: 'te da información sobre un usuario',
-			fr: 'vous donne des informations sur un utilisateur',
+			'de': 'gibt Ihnen Informationen über einen Benutzer',
+			'es-ES': 'te da información sobre un usuario',
+			'fr': 'vous donne des informations sur un utilisateur',
 		};
 		const utilListEmbedHelpInfoLocale = {
-			de: 'dieser Befehl',
-			es: 'este comando',
-			fr: 'cette commande',
+			'de': 'dieser Befehl',
+			'es-ES': 'este comando',
+			'fr': 'cette commande',
 		};
 		const utilListEmbedBanListLocale = {
-			de: '5. /verbieten',
-			es: '5. /prohibir',
-			fr: '5. /interdire',
+			'de': '5. /verbieten',
+			'es-ES': '5. /prohibir',
+			'fr': '5. /interdire',
 		};
 		const utilListEmbedBanInfoLocale = {
-			de: 'verbannt einen Benutzer vom Server',
-			es: 'Prohíbe a un/una usuario del servidor',
-			fr: 'bannit un utilisateur du serveur',
+			'de': 'verbannt einen Benutzer vom Server',
+			'es-ES': 'Prohíbe a un/una usuario del servidor',
+			'fr': 'bannit un utilisateur du serveur',
 		};
 		const utilListEmbedUnbanInfoLocale = {
-			de: 'Entsperrt einen Benutzer vom Server',
-			es: 'Desbloquea a un/una usuario del servidor.',
-			fr: 'débanni un utilisateur du serveur',
+			'de': 'Entsperrt einen Benutzer vom Server',
+			'es-ES': 'Desbloquea a un/una usuario del servidor.',
+			'fr': 'débanni un utilisateur du serveur',
 		};
 		const utilListEmbedKickInfoLocale = {
-			de: 'Kicken Sie einen Benutzer vom Server',
-			es: 'expulsar a un usuario del servidor',
-			fr: 'expulser un utilisateur du serveur',
+			'de': 'Kicken Sie einen Benutzer vom Server',
+			'es-ES': 'expulsar a un usuario del servidor',
+			'fr': 'expulser un utilisateur du serveur',
 		};
 		const selectRemind = {
-			de: 'Verwenden Sie das Auswahlfeld unten, um Informationen zu einem Befehl anzuzeigen',
-			es: 'use el cuadro de selección a continuación para ver información sobre un comando',
-			fr: 'utilisez la zone de sélection ci-dessous pour afficher les informations sur une commande',
+			'de': 'Verwenden Sie das Auswahlfeld unten, um Informationen zu einem Befehl anzuzeigen',
+			'es-ES': 'use el cuadro de selección a continuación para ver información sobre un comando',
+			'fr': 'utilisez la zone de sélection ci-dessous pour afficher les informations sur une commande',
 		};
 		const commandEmbedCategoryUsageLocale = {
-			de: 'Verwendungszweck',
-			es: 'Uso',
-			fr: 'Usage',
+			'de': 'Verwendungszweck',
+			'es-ES': 'Uso',
+			'fr': 'Usage',
 		};
 		const commandEmbedCategoryArgsLocale = {
-			de: 'Argumente',
-			es: 'Argumentos',
-			fr: 'Arguments',
+			'de': 'Argumente',
+			'es-ES': 'Argumentos',
+			'fr': 'Arguments',
 		};
 		const commandEmbedCategoryInfoLocale = {
-			de: 'Die Info',
-			es: 'Información',
-			fr: 'Info',
+			'de': 'Die Info',
+			'es-ES': 'Información',
+			'fr': 'Info',
 		};
 		const pingInfoEmbedTitleLocale = {
-			de: 'Ping-Befehl',
-			es: 'Comando de ping',
-			fr: 'Commande ping',
+			'de': 'Ping-Befehl',
+			'es-ES': 'Comando de ping',
+			'fr': 'Commande ping',
 		};
 		const pingInfoEmbedDescLocale = {
-			de: 'Info zum Ping-Befehl',
-			es: 'Información sobre el comando ping',
-			fr: 'Infos sur la commande ping',
+			'de': 'Info zum Ping-Befehl',
+			'es-ES': 'Información sobre el comando ping',
+			'fr': 'Infos sur la commande ping',
 		};
 		const pingInfoUsageLocale = {
-			de: 'tippe /ping',
-			es: 'tipo /ping',
-			fr: 'taper /ping'
+			'de': 'tippe /ping',
+			'es-ES': 'tipo /ping',
+			'fr': 'taper /ping',
 		};
 
 		const row1 = new ActionRowBuilder()
@@ -275,6 +275,35 @@ module.exports = {
 					.setStyle(ButtonStyle.Secondary),
 			);
 
+		async function buttonCollector(miniinteraction) {
+
+			let collector = miniinteraction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
+
+			collector.on('collect', async i => {
+				if (i.user.id === miniinteraction.user.id) {
+					if (i.customId === 'utils') {
+						await i.update({ embeds: [utilListEmbed], components: [row1] });
+						collector = null;
+					}
+					else if (i.customId === 'closehelp') {
+						await miniinteraction.deleteReply();
+						collector = null;
+					}
+					return 0;
+				}
+				else {
+					i.reply({ content: 'Were sorry but this app is not being used by you, please create your own help app by using the /help command', ephemeral: true });
+					return 0;
+				}
+			});
+
+			client.on('interactionCreate', async inter => {
+				console.log(`${inter} has occured, closing buttons`);
+				collector = null;
+				return 0;
+			});
+		}
+
 		const homeEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle(homeEmbedTitleLocale[interaction.locale] ?? 'Help')
@@ -288,7 +317,7 @@ module.exports = {
 			.setColor(embedColor)
 			.setTitle(utilListTitleLocale[interaction.locale] ?? 'Utilites command list')
 			.setAuthor({ name: embedAuthor })
-			.setDescription(utilListDescLocale[interaction.locale] ?? `Here's a list of SherbertBots commands in the utilities category`)
+			.setDescription(utilListDescLocale[interaction.locale] ?? 'Here\'s a list of SherbertBots commands in the utilities category')
 			.addFields(
 				{ name: '1. /ping', value: utilListEmbedPingInfoLocale[interaction.locale] ?? 'gives you the ping of SherbertBot (developer command)' },
 				{ name: '2. /serverinfo', value: utilListEmbedServerinfoInfoLocale[interaction.locale] ?? 'gives you information about the server' },
@@ -311,7 +340,7 @@ module.exports = {
 			.addFields(
 				{ name: commandEmbedCategoryUsageLocale[interaction.locale] ?? 'Usage', value: pingInfoUsageLocale[interaction.locale] ?? 'type /ping' },
 				{ name: commandEmbedCategoryArgsLocale[interaction.locale] ?? 'Arguments', value: 'None' },
-				{ name: 'Info', value: 'Note: if you arent a developer or dont know technology very well, this command isnt for you, if you got here by accident, just ignore this message and carry on with you day. Ping is a command thats built into SherbertBot for the sake of performance measurement. The command measures how long it takes for SherbertBot to communicate with discord' },
+				{ name: commandEmbedCategoryInfoLocale[interaction.locale] ?? 'info', value: 'Note: if you arent a developer or dont know technology very well, this command isnt for you, if you got here by accident, just ignore this message and carry on with you day. Ping is a command thats built into SherbertBot for the sake of performance measurement. The command measures how long it takes for SherbertBot to communicate with discord' },
 				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
 			)
 			.setTimestamp();
@@ -325,7 +354,7 @@ module.exports = {
 			.addFields(
 				{ name: commandEmbedCategoryUsageLocale[interaction.locale] ?? 'Usage', value: 'type /help' },
 				{ name: commandEmbedCategoryArgsLocale[interaction.locale] ?? 'Arguments', value: 'None' },
-				{ name: 'Info', value: 'Help is a command thats built into SherbertBot for helping users to figure out what can command does what and how to use it. /help can send info about a command if you use the command option or give you a command list if no command is selected' },
+				{ name: commandEmbedCategoryInfoLocale[interaction.locale] ?? 'info', value: 'Help is a command thats built into SherbertBot for helping users to figure out what can command does what and how to use it. /help can send info about a command if you use the command option or give you a command list if no command is selected' },
 				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
 			)
 			.setTimestamp();
@@ -339,7 +368,7 @@ module.exports = {
 			.addFields(
 				{ name: commandEmbedCategoryUsageLocale[interaction.locale] ?? 'Usage', value: 'type /serverinfo' },
 				{ name: commandEmbedCategoryArgsLocale[interaction.locale] ?? 'Arguments', value: 'no arguments' },
-				{ name: 'Info', value: 'serverinfo is a command thats built into SherbertBot for helping users find information about the server there in and admins to obtain statistics about there servers' },
+				{ name: commandEmbedCategoryInfoLocale[interaction.locale] ?? 'info', value: 'serverinfo is a command thats built into SherbertBot for helping users find information about the server there in and admins to obtain statistics about there servers' },
 				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
 			)
 			.setTimestamp();
@@ -353,7 +382,7 @@ module.exports = {
 			.addFields(
 				{ name: commandEmbedCategoryUsageLocale[interaction.locale] ?? 'Usage', value: 'type /userinfo and in the "user" option, type the user you want info about' },
 				{ name: commandEmbedCategoryArgsLocale[interaction.locale] ?? 'Arguments', value: 'one argument' },
-				{ name: 'Info', value: 'userinfo is a command thats built into SherbertBot for helping users find information about other users' },
+				{ name: commandEmbedCategoryInfoLocale[interaction.locale] ?? 'info', value: 'userinfo is a command thats built into SherbertBot for helping users find information about other users' },
 				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
 			)
 			.setTimestamp();
@@ -368,11 +397,11 @@ module.exports = {
 				{ name: commandEmbedCategoryUsageLocale[interaction.locale] ?? 'Usage', value: 'type /ban and in the "user" option, type the user you want to ban from the server' },
 				{ name: ':rotating_light: Warning :rotating_light:', value: 'this action will prevent the user from coming back into the server unless you unban them!' },
 				{ name: commandEmbedCategoryArgsLocale[interaction.locale] ?? 'Arguments', value: 'one argument' },
-				{ name: 'Info', value: 'ban is a command thats built into SherbertBot for helping admins maintain order in there servers through discord banning system, once a user has been banned, they cannot join back into the server unless the ban is removed, which can be done by using the /unban command, you CAN NOT ban SherbertBot or anyone with administrator privileges' },
+				{ name: commandEmbedCategoryInfoLocale[interaction.locale] ?? 'info', value: 'ban is a command thats built into SherbertBot for helping admins maintain order in there servers through discord banning system, once a user has been banned, they cannot join back into the server unless the ban is removed, which can be done by using the /unban command, you CAN NOT ban SherbertBot or anyone with administrator privileges' },
 				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
 			)
 			.setTimestamp();
-		
+
 		// defines the unban embedded message
 		const unbanInfoEmbed = new EmbedBuilder()
 			.setColor(embedColor)
@@ -383,7 +412,7 @@ module.exports = {
 				{ name: commandEmbedCategoryUsageLocale[interaction.locale] ?? 'Usage', value: 'type /unban and in the "user" option, type the user you want to unban from the server' },
 				{ name: ':rotating_light: Warning :rotating_light:', value: 'this action will allow the user to come back to the server unless there banned again!' },
 				{ name: commandEmbedCategoryArgsLocale[interaction.locale] ?? 'Arguments', value: 'one argument' },
-				{ name: 'Info', value: 'unban is a command thats built into SherbertBot for helping admins maintain order in there servers through discord banning system, this the second addition to SherbertBots moderation system banning commands, use this command to allow banned users back into your server ' },
+				{ name: commandEmbedCategoryInfoLocale[interaction.locale] ?? 'info', value: 'unban is a command thats built into SherbertBot for helping admins maintain order in there servers through discord banning system, this the second addition to SherbertBots moderation system banning commands, use this command to allow banned users back into your server ' },
 				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
 			)
 			.setTimestamp();
@@ -398,37 +427,21 @@ module.exports = {
 				{ name: commandEmbedCategoryUsageLocale[interaction.locale] ?? 'Usage', value: 'type /kick and in the "user" option, type the user you want to kick from the server' },
 				{ name: ':rotating_light: Warning :rotating_light:', value: 'this action will remove the user from the server, all users who have not friended this person will not be able to chat with them!' },
 				{ name: commandEmbedCategoryArgsLocale[interaction.locale] ?? 'Arguments', value: 'one argument' },
-				{ name: 'Info', value: 'kick is a command thats built into SherbertBot for helping admins maintain order in there servers through discord kicking system, this the thrid addition to SherbertBots moderation system' },
+				{ name: commandEmbedCategoryInfoLocale[interaction.locale] ?? 'info', value: 'kick is a command thats built into SherbertBot for helping admins maintain order in there servers through discord kicking system, this the thrid addition to SherbertBots moderation system' },
 				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
 			)
 			.setTimestamp();
 
 
-		await interaction.reply({ embeds: [homeEmbed], components: [row3] });
+		await interaction.reply({ embeds: [homeEmbed], components: [row2] });
 
-		const collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
-
-		collector.on('collect', i => {
-			if (i.user.id === interaction.user.id) {
-				if (i.customId === 'utils') {
-					i.update({ embeds: [utilListEmbed], components: [row1] });
-				}
-				else if (i.customId === 'closehelp') {
-					interaction.deleteReply();
-				}
-				return 0;
-			}
-			else {
-				i.reply({ content: 'Were sorry but this app is not being used by you, please create your own help app by using the /help command', ephemeral: true });
-				return 0;
-			}
-		});
+		buttonCollector(interaction);
 
 		client.on('interactionCreate', async inter => {
 			if (!inter.isSelectMenu()) return;
 
 			if (!inter.user.id === interaction.user.id) {
-				inter.reply({ content: 'Were sorry but this app is not being used by you, please create your own help app by using the /help command', ephemeral: true });
+				await inter.reply({ content: 'Were sorry but this app is not being used by you, please create your own help app by using the /help command', ephemeral: true });
 				return 0;
 			}
 
@@ -466,13 +479,13 @@ module.exports = {
 			}
 			else if (inter.values[0] === 'back-to-help') {
 				await inter.update({ embeds: [homeEmbed], components: [row2] });
+				buttonCollector(interaction);
 				return 0;
 			}
 			else if (inter.values[0] === 'exit-help') {
 				interaction.deleteReply();
 				return 0;
 			}
-			
 		});
 
 		client.on('shardError', error => {
