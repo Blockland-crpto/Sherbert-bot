@@ -4,8 +4,8 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ban')
 		.setNameLocalizations({
-			de: 'verbot',
-			es: 'prohibición',
+			de: 'verbieten',
+			es: 'prohibir',
 			fr: 'interdire',
 		})
 		.setDescription('This command bans a user from the server')
