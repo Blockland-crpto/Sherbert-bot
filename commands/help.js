@@ -12,7 +12,7 @@ module.exports = {
 			.addComponents(
 				new SelectMenuBuilder()
 					.setCustomId('helpselect')
-					.setPlaceholder(l'Please select a utility command to view')
+					.setPlaceholder('Please select a utility command to view')
 					.addOptions(
 						{
 							label: 'command list',
@@ -109,8 +109,9 @@ module.exports = {
 			collector.on('end', async collected => {
 				collector = null;
 				miniinteraction.deleteReply();
-			})
-			
+				console.log(collected);
+			});
+
 			client.on('interactionCreate', async inter => {
 				console.log(`${inter} has occured, closing buttons`);
 				collector = null;
@@ -144,7 +145,7 @@ module.exports = {
 				{ name: '\u200B', value: 'use the selection box below to view info about a command' },
 			)
 			.setTimestamp()
-			.setFooter({ `${embedAuthor} version ${SherbertBotVersion}` });
+			.setFooter({ text: `${embedAuthor} version ${SherbertBotVersion}` });
 
 		// defines pings embeded message
 		const pingInfoEmbed = new EmbedBuilder()
@@ -256,7 +257,7 @@ module.exports = {
 			.addFields(
 				{ name: 'Usage', value: 'type /addrole and in the "user" option, type the user you want to give a role too, and in the "role" option, type the role you want to give and in the "reason" option you can say why you are giving your user that role' },
 				{ name: 'Arguments', value: 'two required arguments and one optional argument' },
-				{ name: 'info', value: 'addrole is a command thats built into SherbertBot for helping admins by allowing them to easily give roles to users' },
+				{ name: 'info', value: 'addrole is a command thats built into SherbertBot for helping admins by allowing them to easily give roles to users, however, this command with not work with any command that is above its role place' },
 				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
 			)
 			.setTimestamp();
@@ -309,7 +310,7 @@ module.exports = {
 			else if (inter.values[0] === 'addrole') {
 				await inter.update({ embeds: [addroleInfoEmbed], components: [row1] });
 				return 0;
-			} 
+			}
 			else if (inter.values[0] === 'back-to-help') {
 				await inter.update({ embeds: [homeEmbed], components: [row2] });
 				buttonCollector(interaction);

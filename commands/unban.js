@@ -7,12 +7,11 @@ module.exports = {
 		.addUserOption(opt =>
 			opt.setName('user')
 				.setDescription('the user you want to unban')
-				.setRequired(true)))
+				.setRequired(true))
 		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 	async execute(interaction, client) {
 		const user = interaction.options.getUser('user');
-		const userm = interaction.options.getMember('user');
-		
+
 		try {
 			await interaction.guild.bans.fetch(user);
 		}

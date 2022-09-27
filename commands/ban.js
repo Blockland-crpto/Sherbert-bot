@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionsFlagBits } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -8,11 +8,10 @@ module.exports = {
 			opt.setName('user')
 				.setDescription('the user you want to ban')
 				.setRequired(true))
-		.setDefaultMemberPermissions(PermissionsFlagBits.BanMembers),
+		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 	async execute(interaction, client) {
 		const user = interaction.options.getUser('user');
 		const userm = interaction.options.getMember('user');
-		
 		if (!userm.manageable) {
 			await interaction.reply({ content: `Were sorry, but you cannot ban ${user}, they have more permissions then SherbertBot, please try again`, ephemeral: true });
 			return 1;
