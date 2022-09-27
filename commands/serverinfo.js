@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { embedColor } = require('../config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -6,7 +7,7 @@ module.exports = {
 		.setDescription('Get info about the server your in'),
 	async execute(interaction, client) {
 		const serverInfoEmbed = new EmbedBuilder()
-			.setColor(0x0099F)
+			.setColor(embedColor)
 			.setTitle('server information')
 			.setAuthor({ name: 'SherbertBot' })
 			.setDescription('Here is some information about the server your in')

@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { embedColor } = require('../config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -11,7 +12,7 @@ module.exports = {
 	async execute(interaction, client) {
 		const targetUser = interaction.options.getUser('user');
 		const userInfoEmbed = new EmbedBuilder()
-			.setColor(0x0099F)
+			.setColor(embedColor)
 			.setTitle('user information')
 			.setAuthor({ name: 'SherbertBot' })
 			.setDescription(`Information about ${targetUser}`)

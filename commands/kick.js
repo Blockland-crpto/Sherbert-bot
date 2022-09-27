@@ -39,7 +39,7 @@ module.exports = {
 		else {
 
 			userm.kick(interaction.options.getString('reason'));
-			await interaction.reply({ content: `${user} has been successfully kick from ${interaction.guild.name}`, ephemeral: true });
+			await interaction.reply({ content: `${user} has been successfully kicked from ${interaction.guild.name}`, ephemeral: true });
 		}
 
 		client.on('shardError', error => {
