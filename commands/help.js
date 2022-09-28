@@ -60,6 +60,11 @@ module.exports = {
 							value: 'addrole',
 						},
 						{
+							label: '/createrole',
+							description: 'Get information on the createrole command',
+							value: 'createrole',
+						},
+						{
 							label: 'Back to main menu',
 							description: 'Go back to the main menu of the help app',
 							value: 'back-to-help',
@@ -142,6 +147,7 @@ module.exports = {
 				{ name: '6. /unban', value: 'unbans a user from the server' },
 				{ name: '7. /kick', value: 'kick a user from the server' },
 				{ name: '8. /addrole', value: 'gives a user a role' },
+				{ name: '9. /createrole', value: 'creates a role' },
 				{ name: '\u200B', value: 'use the selection box below to view info about a command' },
 			)
 			.setTimestamp()
@@ -262,7 +268,20 @@ module.exports = {
 			)
 			.setTimestamp();
 
-
+		// defines createrole embeded message
+		const createroleInfoEmbed = new EmbedBuilder()
+			.setColor(embedColor)
+			.setTitle('createrole command')
+			.setAuthor({ name: embedAuthor })
+			.setDescription('Info on the createrole command')
+			.addFields(
+				{ name: 'Usage', value: 'type /createrole and in the "name" option, type the name of the role you want to create' },
+				{ name: 'Arguments', value: 'one argument' },
+				{ name: 'info', value: 'createrole is a command thats built into SherbertBot for helping admins by allowing them to easily create roles for users' },
+				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
+			)
+			.setTimestamp();
+		
 		await interaction.reply({ embeds: [homeEmbed], components: [row2] });
 
 		buttonCollector(interaction);
@@ -275,6 +294,48 @@ module.exports = {
 				return 0;
 			}
 
+			switch(inter.values[0]) {
+				case 'cmdlist':
+					await inter.update({ embeds: [utilListEmbed], components: [row1] });
+					break;
+				case 'ban':
+					await inter.update({ embeds: [banInfoEmbed], components: [row1] });
+					break;
+				case 'unban':
+					await inter.update({ embeds: [unbanInfoEmbed], components: [row1] });
+					break;
+				case 'ping':
+					await inter.update({ embeds: [pingInfoEmbed], components: [row1] });
+					break;
+				case 'help':
+					await inter.update({ embeds: [helpInfoEmbed], components: [row1] });
+					break;
+				case 'serverinfo':
+					await inter.update({ embeds: [serverinfInfoEmbed], components: [row1] });
+					break;
+				case 'userinfo':
+					await inter.update({ embeds: [userinfInfoEmbed], components: [row1] });
+					break;
+				case 'kick':
+					await inter.update({ embeds: [kickInfoEmbed], components: [row1] });
+					break;
+				case 'addrole':
+					await inter.update({ embeds: [addroleInfoEmbed], components: [row1] });
+					break;
+				case 'createrole':
+					await inter.update({ embeds: [createroleInfoEmbed], components: [row1] });
+					break;
+				case 'back-to-menu':
+					await inter.update({ embeds: [homeEmbed], components: [row2] });
+					buttonCollector(interaction);
+					break;
+				case 'exit-help':
+					interaction.deleteReply();
+					break;
+			}
+
+			/*
+			
 			if (inter.values[0] === 'cmdlist') {
 				await inter.update({ embeds: [utilListEmbed], components: [row1] });
 				return 0;
@@ -311,6 +372,10 @@ module.exports = {
 				await inter.update({ embeds: [addroleInfoEmbed], components: [row1] });
 				return 0;
 			}
+			else if (inter.values[0] === 'createrole') {
+				await inter.update({ embeds: [createroleInfoEmbed], components: [row1] });
+				return 0;
+			}
 			else if (inter.values[0] === 'back-to-help') {
 				await inter.update({ embeds: [homeEmbed], components: [row2] });
 				buttonCollector(interaction);
@@ -320,6 +385,7 @@ module.exports = {
 				interaction.deleteReply();
 				return 0;
 			}
+			*/
 		});
 
 		client.on('shardError', error => {

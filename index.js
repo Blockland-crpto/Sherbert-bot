@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { token, embedColor } = require('./config.json');
 const process = require('node:process');
 const path = require('node:path');
@@ -56,7 +56,7 @@ client.on('interactionCreate', async interaction => {
 			.setColor(embedColor)
 			.setTitle('Bug Report')
 			.setAuthor({ name: 'SherbertBot' })
-			.setDescription(`Were sorry, but a error occured while trying to run ${command}, please try again later`)
+			.setDescription(`Were sorry, but a error occured while trying to run ${command}, please try again later, `)
 			.addFields(
 				{ name: 'Error name', value: `${error.name}` },
 				{ name: 'Error code', value: `${error.code}` },
