@@ -16,7 +16,7 @@ module.exports = {
 				{ name: 'Server name:', value: `${interaction.guild.name}` },
 				{ name: 'Server ID:', value: `${interaction.guild.id}`, inline: true },
 				{ name: 'Server total members', value: `${interaction.guild.memberCount}`, inline: true },
-				{ name: 'Server online members', value: `${online}` }
+				{ name: 'Server online members', value: `${online}` },
 			)
 			.setTimestamp()
 			.setFooter({ text: 'SherbertBot version v1.0.0' });
@@ -25,9 +25,9 @@ module.exports = {
 			minteraction.guild.fetch({ withPresence: true }).then(fetchedMembers => {
 				const onlineMembers = fetchedMembers.filter(member => member.presence?.status === 'online');
 				return onlineMembers;
-			})
+			});
 		}
-		
+
 		await interaction.reply({ embeds: [serverInfoEmbed], ephemeral: true });
 
 		client.on('shardError', error => {

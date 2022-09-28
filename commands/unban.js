@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits, PermissionsBitField, EmbedBuilder } = require('discord.js');
-const { embedColor } = require('../config.json')
+const { embedColor } = require('../config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -33,7 +33,7 @@ module.exports = {
 			.setDescription('Were sorry, but you cannot unban yourself, as if your in this server, you are not banned, please try again')
 			.setTimestamp()
 			.setFooter({ text: 'SherbertBot V1.0.0' });
-			
+
 		try {
 			await interaction.guild.bans.fetch(user);
 		}

@@ -1,5 +1,5 @@
-const { SlashCommandBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, EmbedBuilder, quote, PermissionsBitField } = require('discord.js');
-const { embedColor } = require('../config.json');
+const { SlashCommandBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, quote, PermissionsBitField, SelectMenuBuilder } = require('discord.js');
+const { embedColor, embedAuthorName } = require('../config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -13,11 +13,10 @@ module.exports = {
 	async execute(interaction, client) {
 		const permValue = [];
 		const name = interaction.options.getString('name');
-		const invoker = interaction.member;
 		const eName = quote(name);
 		const roleCreateEmbed = new EmbedBuilder()
 			.setColor(embedColor)
-			.setTitle('Role creation')
+			.setTitle('role creation')
 			.setAuthor({ name: embedAuthorName })
 			.setDescription(`Welcome to SherbertBots Role Creation App! in order to create the role, please select the permissions that the ${eName} role should have`);
 		const nullPermEmbed = new EmbedBuilder()
@@ -34,59 +33,59 @@ module.exports = {
 			.setColor(embedColor)
 			.setTitle('finished')
 			.setAuthor({ name: embedAuthorName })
-			.setDescription(`the role ${eName} has been added to ${interaction.server.name}!`);
+			.setDescription(`the role ${eName} has been added to ${interaction.guild.name}!`);
 		const permsSelectRow = new ActionRowBuilder()
 			.addComponents(
 				new SelectMenuBuilder()
 					.setCustomId('perms')
-					.setPlaceHolder('No permissions selected')
-					.setMinValue(1)
-					.setMaxValue(23)
+					.setPlaceholder('No permissions selected')
+					.setMinValues(1)
+					.setMaxValues(9)
 					.addOptions([
 						{
-							label: 'Add Reactions To Messages',
+							label: 'add reactions to messages',
 							description: 'Allows the user to add reactions to messages',
-							value: PermissionsBitField.Flags.AddReactions,
+							value: 'artm',
 						},
 						{
-							label: 'Administrator Permissions',
-							description: 'Allows the user who has this role to have all the permissions, WARNING: THIS COMMAND WILL GIVE THE USER PERMISSIONS EQUAL TO THE OWNER',
-							value: PermissionsBitField.Flags.Administrator,
+							label: 'administrator permissions',
+							description: 'Allows the user who has this role to have all the permissions',
+							value: 'admin',
 						},
 						{
-							label: 'Attach Files',
+							label: 'attach files',
 							description: 'Allows the user who has this role to attach files to messages',
-							value: PermissionsBitField.Flags.AttachFiles,
+							value: 'af',
 						},
 						{
-							label: 'Banning Permissions',
-							description: 'Allows the user who has this role to ban users from your server, this also allows them to remove bans',
-							value: PermissionsBitField.Flags.BanMembers,
+							label: 'banning permissions',
+							description: 'Allows the user who has this role to ban/unban users from your server',
+							value: 'bp',
 						},
 						{
-							label: 'Change Nicknames',
+							label: 'change nicknames',
 							description: 'Allows the user who has this role to change the nicknames of users below there role',
-							value: PermissionsBitField.Flags.ChangeNickname,
+							value: 'cn',
 						},
 						{
-							label: 'Connect To Voice Channels',
+							label: 'connect to voice channels',
 							description: 'Allows the user who has this role to join voice channels (does not apply to private ones)',
-							value: PermissionsBitField.Flags.Connect, 
+							value: 'ctvc',
 						},
 						{
-							label: 'Kicking Permissions',
+							label: 'kicking permissions',
 							description: 'Allows the user who has this role to kick users from your server',
-							value: PermissionsBitField.Flags.KickMembers,
-						},	
-						{
-							label: 'Manage Roles Permissions',
-							description: 'Allows the user who has this role to manage roles that are below them in rank',
-							value: PermissionsBitField.Flags.ManageRoles,
+							value: 'kp',
 						},
 						{
-							label: 'Manage Channel Permissions',
+							label: 'manage roles permissions',
+							description: 'Allows the user who has this role to manage roles that are below them in rank',
+							value: 'mrp',
+						},
+						{
+							label: 'manage channel permissions',
 							description: 'Allows the user who has this role to manage channels',
-							value: PermissionsBitField.Flags.ManageChannels,
+							value: 'mcp',
 						},
 					]),
 			);
@@ -113,11 +112,42 @@ module.exports = {
 
 		await interaction.reply({ embeds: [roleCreateEmbed], components: [permsSelectRow, completeButtonRow], ephemeral: true });
 
-		client.on('interactionCreate', async i => {
-			if (!i.isSelectMenu()) return;
-			permValue.push(i.values);
-		})
-		
+		client.on('interactionCreate', async inte => {
+			console.log(inte.values);
+			if (!inte.isSelectMenu()) return;
+
+			inte.values.forEach(string => {
+				if (string === 'artm') {
+					permValue.push(PermissionsBitField.Flags.AddReactions);
+				}
+				else if (string === 'admin') {
+					permValue.push(PermissionsBitField.Flags.Administrator);
+				}
+				else if (string === 'af') {
+					permValue.push(PermissionsBitField.Flags.AttachFiles);
+				}
+				else if (string === 'bp') {
+					permValue.push(PermissionsBitField.Flags.BanMembers);
+				}
+				else if (string === 'cn') {
+					permValue.push(PermissionsBitField.Flags.ChangeNickname);
+				}
+				else if (string === 'ctvc') {
+					permValue.push(PermissionsBitField.Flags.Connect);
+				}
+				else if (string === 'kp') {
+					permValue.push(PermissionsBitField.Flags.KickMembers);
+				}
+				else if (string === 'mrp') {
+					permValue.push(PermissionsBitField.Flags.ManageRoles);
+				}
+				else if (string === 'mcp') {
+					permValue.push(PermissionsBitField.Flags.ManageChannels);
+				}
+			});
+			console.log(permValue.toString());
+		});
+
 		client.on('interactionCreate', async inter => {
 			if (!inter.isButton()) return;
 			if (inter.customId === 'complete') {
@@ -132,15 +162,15 @@ module.exports = {
 				}
 			}
 			else if (inter.customId === 'cancel') {
-				await i.update({ embeds: [endedEmbed], components: [], ephemeral: true });
+				await inter.update({ embeds: [endedEmbed], components: [], ephemeral: true });
 				return 0;
 			}
 			else if (inter.customId === 'dismiss') {
-				await i.update({ embeds: [roleCreateEmbed], components: [permsSelectRow, completeButtonRow], ephemeral: true });
+				await inter.update({ embeds: [roleCreateEmbed], components: [permsSelectRow, completeButtonRow], ephemeral: true });
 				return 0;
 			}
 		});
-		
+
 		client.on('shardError', error => {
 			console.error('Websocket encountered an error', error);
 		});

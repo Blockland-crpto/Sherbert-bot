@@ -82,7 +82,7 @@ module.exports = {
 			await interaction.reply({ embeds: [questionMarkErrorEmbed], ephemeral: true });
 			return 1;
 		}
-		
+
 		if (targetMember.roles.cache.some(role => role.name === targetRoles.name)) {
 			await interaction.reply({ content: `Were sorry, but you cannot give ${targetUser} the ${targetRoles} role, they already have this role`, ephemeral: true });
 			return 1;
@@ -103,11 +103,11 @@ module.exports = {
 			collector.on('collect', async i => {
 				if (i.customId === 'confirm') {
 					collector = null;
-					if(reason != null) {
+					if (reason !== null) {
 						targetMember.roles.add(targetRoles, reason);
 						await i.update({ embeds: [successGiveEmbedR], components: [], ephemeral: true });
 					}
-					else (reason === null) {
+					else if (reason === null) {
 						targetMember.roles.add(targetRoles);
 						await i.update({ embeds: [successGiveEmbedN], components: [], ephemeral: true });
 					}
@@ -136,18 +136,18 @@ module.exports = {
 			collector.on('collect', async i => {
 				if (i.customId === 'confirm') {
 					collector = null;
-					if(reason != null) {
+					if (reason !== null) {
 						targetMember.roles.add(targetRoles, reason);
-						await i.update({ embeds: [successGiveEmbedR], components: [], ephemeral: true });
+						await interaction.update({ embeds: [successGiveEmbedR], components: [], ephemeral: true });
 					}
-					else (reason === null) {
+					else if (reason === null) {
 						targetMember.roles.add(targetRoles);
-						await i.update({ embeds: [successGiveEmbedN], components: [], ephemeral: true });
+						await interaction.update({ embeds: [successGiveEmbedN], components: [], ephemeral: true });
 					}
 				}
 				else if (i.customId === 'decline') {
 					collector = null;
-					await i.update({ embeds: [cancelledGiveEmbed], components: [], ephemeral: true });
+					await interaction.update({ embeds: [cancelledGiveEmbed], components: [], ephemeral: true });
 				}
 				return 0;
 			});
@@ -158,16 +158,15 @@ module.exports = {
 				return 0;
 			});
 		}
-			
 		else {
 			targetUser.send(`Hello ${targetUser}! we just wanted to let you know that you have received a new role in ${interaction.guild.name}!`);
-			if(reason != null) {
+			if (reason != null) {
 				targetMember.roles.add(targetRoles, reason);
-				await i.update({ embeds: [successGiveEmbedR], components: [], ephemeral: true });
+				await interaction.update({ embeds: [successGiveEmbedR], components: [], ephemeral: true });
 			}
 			else if (reason === null) {
 				targetMember.roles.add(targetRoles);
-				await i.update({ embeds: [successGiveEmbedN], components: [], ephemeral: true });
+				await interaction.update({ embeds: [successGiveEmbedN], components: [], ephemeral: true });
 			}
 			return 0;
 		}

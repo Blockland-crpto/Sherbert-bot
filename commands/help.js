@@ -113,7 +113,6 @@ module.exports = {
 
 			collector.on('end', async collected => {
 				collector = null;
-				miniinteraction.deleteReply();
 				console.log(collected);
 			});
 
@@ -281,7 +280,7 @@ module.exports = {
 				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
 			)
 			.setTimestamp();
-		
+
 		await interaction.reply({ embeds: [homeEmbed], components: [row2] });
 
 		buttonCollector(interaction);
@@ -294,48 +293,48 @@ module.exports = {
 				return 0;
 			}
 
-			switch(inter.values[0]) {
-				case 'cmdlist':
-					await inter.update({ embeds: [utilListEmbed], components: [row1] });
-					break;
-				case 'ban':
-					await inter.update({ embeds: [banInfoEmbed], components: [row1] });
-					break;
-				case 'unban':
-					await inter.update({ embeds: [unbanInfoEmbed], components: [row1] });
-					break;
-				case 'ping':
-					await inter.update({ embeds: [pingInfoEmbed], components: [row1] });
-					break;
-				case 'help':
-					await inter.update({ embeds: [helpInfoEmbed], components: [row1] });
-					break;
-				case 'serverinfo':
-					await inter.update({ embeds: [serverinfInfoEmbed], components: [row1] });
-					break;
-				case 'userinfo':
-					await inter.update({ embeds: [userinfInfoEmbed], components: [row1] });
-					break;
-				case 'kick':
-					await inter.update({ embeds: [kickInfoEmbed], components: [row1] });
-					break;
-				case 'addrole':
-					await inter.update({ embeds: [addroleInfoEmbed], components: [row1] });
-					break;
-				case 'createrole':
-					await inter.update({ embeds: [createroleInfoEmbed], components: [row1] });
-					break;
-				case 'back-to-menu':
-					await inter.update({ embeds: [homeEmbed], components: [row2] });
-					buttonCollector(interaction);
-					break;
-				case 'exit-help':
-					interaction.deleteReply();
-					break;
+			switch (inter.values[0]) {
+			case 'cmdlist':
+				await inter.update({ embeds: [utilListEmbed], components: [row1] });
+				break;
+			case 'ban':
+				await inter.update({ embeds: [banInfoEmbed], components: [row1] });
+				break;
+			case 'unban':
+				await inter.update({ embeds: [unbanInfoEmbed], components: [row1] });
+				break;
+			case 'ping':
+				await inter.update({ embeds: [pingInfoEmbed], components: [row1] });
+				break;
+			case 'help':
+				await inter.update({ embeds: [helpInfoEmbed], components: [row1] });
+				break;
+			case 'serverinfo':
+				await inter.update({ embeds: [serverinfInfoEmbed], components: [row1] });
+				break;
+			case 'userinfo':
+				await inter.update({ embeds: [userinfInfoEmbed], components: [row1] });
+				break;
+			case 'kick':
+				await inter.update({ embeds: [kickInfoEmbed], components: [row1] });
+				break;
+			case 'addrole':
+				await inter.update({ embeds: [addroleInfoEmbed], components: [row1] });
+				break;
+			case 'createrole':
+				await inter.update({ embeds: [createroleInfoEmbed], components: [row1] });
+				break;
+			case 'back-to-help':
+				await inter.update({ embeds: [homeEmbed], components: [row2] });
+				buttonCollector(interaction);
+				break;
+			case 'exit-help':
+				interaction.deleteReply();
+				break;
 			}
 
 			/*
-			
+
 			if (inter.values[0] === 'cmdlist') {
 				await inter.update({ embeds: [utilListEmbed], components: [row1] });
 				return 0;

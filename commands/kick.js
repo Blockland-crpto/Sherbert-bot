@@ -36,15 +36,13 @@ module.exports = {
 			await interaction.reply({ content: `Were sorry, but you cannot kick ${user}, they have permissions that are greater then SherbertBot, please try again`, ephemeral: true });
 			return 1;
 		}
+		else if (!reason) {
+			userm.kick();
+			await interaction.reply({ content: `${user} has been successfully kicked from ${interaction.guild.name} because ${reason}`, ephemeral: true });
+		}
 		else {
-			if (!reason) {
-				userm.kick();
-				await interaction.reply({ content: `${user} has been successfully kicked from ${interaction.guild.name} because ${reason}`, ephemeral: true });
-			}
-			else {
-				userm.kick();
-				await interaction.reply({ content: `${user} has been successfully kicked from ${interaction.guild.name} because ${reason}`, ephemeral: true });
-			}			
+			userm.kick();
+			await interaction.reply({ content: `${user} has been successfully kicked from ${interaction.guild.name} because ${reason}`, ephemeral: true });
 		}
 
 		client.on('shardError', error => {

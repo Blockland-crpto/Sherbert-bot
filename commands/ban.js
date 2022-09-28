@@ -44,19 +44,15 @@ module.exports = {
 				.catch(console.error);
 			return 1;
 		}
+		else if (!reason) {
+			interaction.guild.members.ban(user);
+			await interaction.reply({ content: `${user} has been successfully banned from ${interaction.guild.name}`, ephemeral: true })
+				.catch(console.error);
+		}
 		else {
-
-			if(!reason) {
-				interaction.guild.members.ban(user);
-				await interaction.reply({ content: `${user} has been successfully banned from ${interaction.guild.name}`, ephemeral: true })
-					.catch(console.error);
-			}
-			else {
-				interaction.guild.members.ban(user, { reason: reason });
-				await interaction.reply({ content: `${user} has been successfully banned from ${interaction.guild.name} because ${reason}`, ephemeral: true })
-					.catch(console.error);
-			}
-
+			interaction.guild.members.ban(user, { reason: reason });
+			await interaction.reply({ content: `${user} has been successfully banned from ${interaction.guild.name} because ${reason}`, ephemeral: true })
+				.catch(console.error);
 		}
 
 		client.on('shardError', error => {
