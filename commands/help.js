@@ -216,9 +216,9 @@ module.exports = {
 			.setAuthor({ name: embedAuthor })
 			.setDescription('Info on the ban command')
 			.addFields(
-				{ name: 'Usage', value: 'type /ban and in the "user" option, type the user you want to ban from the server' },
+				{ name: 'Usage', value: 'type /ban and in the "user" option, type the user you want to ban from the server, and you can optionally, in the "reason" option, type why you are banning them' },
 				{ name: ':rotating_light: Warning :rotating_light:', value: 'this action will prevent the user from coming back into the server unless you unban them!' },
-				{ name: 'Arguments', value: 'one argument' },
+				{ name: 'Arguments', value: 'one required argument and one optional argument' },
 				{ name: 'info', value: 'ban is a command thats built into SherbertBot for helping admins maintain order in there servers through discord banning system, once a user has been banned, they cannot join back into the server unless the ban is removed, which can be done by using the /unban command, you CAN NOT ban SherbertBot or anyone with administrator privileges' },
 				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
 			)
@@ -246,9 +246,9 @@ module.exports = {
 			.setAuthor({ name: embedAuthor })
 			.setDescription('Info on the kick command')
 			.addFields(
-				{ name: 'Usage', value: 'type /kick and in the "user" option, type the user you want to kick from the server' },
+				{ name: 'Usage', value: 'type /kick and in the "user" option, type the user you want to kick from the server, and optionally, in the "reason" option, type why you you are kicking them' },
 				{ name: ':rotating_light: Warning :rotating_light:', value: 'this action will remove the user from the server, all users who have not friended this person will not be able to chat with them!' },
-				{ name: 'Arguments', value: 'one argument' },
+				{ name: 'Arguments', value: 'one required argument and one optional argument' },
 				{ name: 'info', value: 'kick is a command thats built into SherbertBot for helping admins maintain order in there servers through discord kicking system, this the thrid addition to SherbertBots moderation system' },
 				{ name: 'Added in', value: 'SherbertBot V1.0.0' },
 			)

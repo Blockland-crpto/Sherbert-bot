@@ -8,11 +8,19 @@ module.exports = {
 			opt.setName('user')
 				.setDescription('the user you want to ban')
 				.setRequired(true))
+		.addStringOption(opt =>
+			opt.setName('reason')
+				.setDescription('why you are banning the user')
+				.setRequired(false))
 		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 	async execute(interaction, client) {
 		const user = interaction.options.getUser('user');
 		const userm = interaction.options.getMember('user');
-		if (!userm.manageable) {
+		const reason = interaction.options.getString('reason');
+		if (!interaction.guild.available) {
+			return 1;
+		}
+		else if (!userm.manageable) {
 			await interaction.reply({ content: `Were sorry, but you cannot ban ${user}, they have more permissions then SherbertBot, please try again`, ephemeral: true });
 			return 1;
 		}
@@ -38,9 +46,17 @@ module.exports = {
 		}
 		else {
 
-			interaction.guild.members.ban(user);
-			await interaction.reply({ content: `${user} has been successfully banned from ${interaction.guild.name}`, ephemeral: true })
-				.catch(console.error);
+			if(!reason) {
+				interaction.guild.members.ban(user);
+				await interaction.reply({ content: `${user} has been successfully banned from ${interaction.guild.name}`, ephemeral: true })
+					.catch(console.error);
+			}
+			else {
+				interaction.guild.members.ban(user, { reason: reason });
+				await interaction.reply({ content: `${user} has been successfully banned from ${interaction.guild.name} because ${reason}`, ephemeral: true })
+					.catch(console.error);
+			}
+
 		}
 
 		client.on('shardError', error => {

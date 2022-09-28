@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
-const { embedColor } = require('../config.json');
+const { embedColor, embedAuthorName } = require('../config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -29,7 +29,7 @@ module.exports = {
 		const adminGiveConfirmEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('confirmation')
-			.setAuthor({ name: 'SherbertBot' })
+			.setAuthor({ name: embedAuthorName })
 			.setDescription(`The role ${targetRoles} is a administrator role, this means, that giving this role to ${targetUser} will give them owner permissions, they also can see any private channel`)
 			.addFields(
 				{ name: '\u200B', value: 'are you sure you want to do this?' },
@@ -37,7 +37,7 @@ module.exports = {
 		const banGiveConfirmEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('confirmation')
-			.setAuthor({ name: 'SherbertBot' })
+			.setAuthor({ name: embedAuthorName })
 			.setDescription(`The role ${targetRoles} has ban permissions, this means, that giving this role to ${targetUser} will give them the ability to ban others from your server! and as a reminder, when you ban, a user cannot return to your server unless the ban is removed!`)
 			.addFields(
 				{ name: '\u200B', value: 'are you sure you want to do this?' },
@@ -45,25 +45,25 @@ module.exports = {
 		const successGiveEmbedN = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('success')
-			.setAuthor({ name: 'SherbertBot' })
+			.setAuthor({ name: embedAuthorName })
 			.setDescription(`Successfully gave ${targetUser} the ${targetRoles} role`)
 			.setTimestamp();
 		const successGiveEmbedR = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('success')
-			.setAuthor({ name: 'SherbertBot' })
+			.setAuthor({ name: embedAuthorName })
 			.setDescription(`Successfully gave ${targetUser} the ${targetRoles} role because ${reason}`)
 			.setTimestamp();
 		const cancelledGiveEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('cancelled')
-			.setAuthor({ name: 'SherbertBot' })
+			.setAuthor({ name: embedAuthorName })
 			.setDescription(`${targetUser} did not get the ${targetRoles} role as the app was cancelled`)
 			.setTimestamp();
 		const questionMarkErrorEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('error')
-			.setAuthor({ name: 'SherbertBot' })
+			.setAuthor({ name: embedAuthorName })
 			.setDescription('Were sorry, but you cannot put question marks in the reason option, please try again')
 			.setTimestamp();
 		const confirmRow = new ActionRowBuilder()

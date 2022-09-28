@@ -15,7 +15,7 @@ module.exports = {
 	async execute(interaction, client) {
 		const user = interaction.options.getUser('user');
 		const userm = interaction.options.getMember('user');
-
+		const reason = interaction.options.getString('reason');
 		if (interaction.user.id === user.id) {
 			await interaction.reply({ content: 'Were sorry, but you cannot kick yourself, please try again', ephemeral: true });
 			return 1;
@@ -37,9 +37,14 @@ module.exports = {
 			return 1;
 		}
 		else {
-
-			userm.kick(interaction.options.getString('reason'));
-			await interaction.reply({ content: `${user} has been successfully kicked from ${interaction.guild.name}`, ephemeral: true });
+			if (!reason) {
+				userm.kick();
+				await interaction.reply({ content: `${user} has been successfully kicked from ${interaction.guild.name} because ${reason}`, ephemeral: true });
+			}
+			else {
+				userm.kick();
+				await interaction.reply({ content: `${user} has been successfully kicked from ${interaction.guild.name} because ${reason}`, ephemeral: true });
+			}			
 		}
 
 		client.on('shardError', error => {

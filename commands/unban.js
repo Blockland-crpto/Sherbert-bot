@@ -1,4 +1,5 @@
-const { SlashCommandBuilder, PermissionFlagsBits, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, PermissionsBitField, EmbedBuilder } = require('discord.js');
+const { embedColor } = require('../config.json')
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -11,22 +12,43 @@ module.exports = {
 		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 	async execute(interaction, client) {
 		const user = interaction.options.getUser('user');
-
+		const notBannedErrorEmbed = new EmbedBuilder()
+			.setColor(embedColor)
+			.setName('error')
+			.setAuthor({ name: 'SherbertBot' })
+			.setDescription('Were sorry, but you cannot unban someone who is not banned, please try again')
+			.setTimestamp()
+			.setFooter({ text: 'SherbertBot V1.0.0' });
+		const unknownErrorEmbed = new EmbedBuilder()
+			.setColor(embedColor)
+			.setName('error')
+			.setAuthor({ name: 'SherbertBot' })
+			.setDescription('Were sorry, but a unknown error occured while trying to unban the user, please try again')
+			.setTimestamp()
+			.setFooter({ text: 'SherbertBot V1.0.0' });
+		const userAttemptedSelfEmbed = new EmbedBuilder()
+			.setColor(embedColor)
+			.setName('error')
+			.setAuthor({ name: 'SherbertBot' })
+			.setDescription('Were sorry, but you cannot unban yourself, as if your in this server, you are not banned, please try again')
+			.setTimestamp()
+			.setFooter({ text: 'SherbertBot V1.0.0' });
+			
 		try {
 			await interaction.guild.bans.fetch(user);
 		}
 		catch (error) {
 			if (error.code === 10026) {
-				await interaction.reply({ content: 'Were sorry, but you cannot unban a user that isnt banned, please try again', ephemeral: true });
+				await interaction.reply({ embeds: [notBannedErrorEmbed], ephemeral: true });
 				return 1;
 			}
 			else {
-				await interaction.reply({ content: 'Were sorry, but a unknown error occured while trying to unban the user, please try again', ephemeral: true });
+				await interaction.reply({ embeds: [unknownErrorEmbed], ephemeral: true });
 				return 1;
 			}
 		}
 		if (interaction.user.id === user.id) {
-			await interaction.reply({ content: 'Were sorry, but you cannot unban yourself, please try again', ephemeral: true });
+			await interaction.reply({ embeds: [userAttemptedSelfEmbed], ephemeral: true });
 			return 1;
 		}
 		else if (!interaction.member.permissions.has(PermissionsBitField.Flags.BanMembers)) {

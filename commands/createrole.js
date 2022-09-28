@@ -13,26 +13,27 @@ module.exports = {
 	async execute(interaction, client) {
 		const permValue = [];
 		const name = interaction.options.getString('name');
+		const invoker = interaction.member;
 		const eName = quote(name);
 		const roleCreateEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('Role creation')
-			.setAuthor({ name: 'SherbertBot' })
+			.setAuthor({ name: embedAuthorName })
 			.setDescription(`Welcome to SherbertBots Role Creation App! in order to create the role, please select the permissions that the ${eName} role should have`);
 		const nullPermEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('error')
-			.setAuthor({ name: 'SherbertBot' })
+			.setAuthor({ name: embedAuthorName })
 			.setDescription('Were sorry, but you cannot make a role without selecting permissions');
 		const endedEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('ended')
-			.setAuthor({ name: 'SherbertBot' })
+			.setAuthor({ name: embedAuthorName })
 			.setDescription('The app was cancelled, the role was not created');
 		const roleCompletedEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('finished')
-			.setAuthor({ name: 'SherbertBot' })
+			.setAuthor({ name: embedAuthorName })
 			.setDescription(`the role ${eName} has been added to ${interaction.server.name}!`);
 		const permsSelectRow = new ActionRowBuilder()
 			.addComponents(
@@ -43,9 +44,19 @@ module.exports = {
 					.setMaxValue(23)
 					.addOptions([
 						{
-							label: 'Kicking Permissions',
-							description: 'Allows the user who has this role to kick users from your server',
-							value: PermissionsBitField.Flags.KickMembers,
+							label: 'Add Reactions To Messages',
+							description: 'Allows the user to add reactions to messages',
+							value: PermissionsBitField.Flags.AddReactions,
+						},
+						{
+							label: 'Administrator Permissions',
+							description: 'Allows the user who has this role to have all the permissions, WARNING: THIS COMMAND WILL GIVE THE USER PERMISSIONS EQUAL TO THE OWNER',
+							value: PermissionsBitField.Flags.Administrator,
+						},
+						{
+							label: 'Attach Files',
+							description: 'Allows the user who has this role to attach files to messages',
+							value: PermissionsBitField.Flags.AttachFiles,
 						},
 						{
 							label: 'Banning Permissions',
@@ -53,15 +64,30 @@ module.exports = {
 							value: PermissionsBitField.Flags.BanMembers,
 						},
 						{
-							label: 'Manage roles Permissions',
+							label: 'Change Nicknames',
+							description: 'Allows the user who has this role to change the nicknames of users below there role',
+							value: PermissionsBitField.Flags.ChangeNickname,
+						},
+						{
+							label: 'Connect To Voice Channels',
+							description: 'Allows the user who has this role to join voice channels (does not apply to private ones)',
+							value: PermissionsBitField.Flags.Connect, 
+						},
+						{
+							label: 'Kicking Permissions',
+							description: 'Allows the user who has this role to kick users from your server',
+							value: PermissionsBitField.Flags.KickMembers,
+						},	
+						{
+							label: 'Manage Roles Permissions',
 							description: 'Allows the user who has this role to manage roles that are below them in rank',
 							value: PermissionsBitField.Flags.ManageRoles,
 						},
 						{
-							label: 'Manage channel Permissions',
+							label: 'Manage Channel Permissions',
 							description: 'Allows the user who has this role to manage channels',
 							value: PermissionsBitField.Flags.ManageChannels,
-						}
+						},
 					]),
 			);
 
