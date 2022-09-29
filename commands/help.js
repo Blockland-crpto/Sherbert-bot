@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, SelectMenuBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, SelectMenuBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { embedColor, embedAuthorName } = require('../config.json');
 
 module.exports = {
@@ -109,7 +109,7 @@ module.exports = {
 					.setAuthor({ name: embedAuthorName })
 					.setDescription(`Info on the ${cmdname} command\nUsage: ${usage}\nArguments: ${args}\nInfo: ${info}\nAdded in: ${addedin}`)
 					.setTimestamp();
-		
+
 				return helpInfoEmbed;
 			}
 		}
@@ -121,18 +121,17 @@ module.exports = {
 		const serverinfInfoEmbed = new SherbertBotEmbedHelpPage('serverinfo', 'type /serverinfo', 'None', 'serverinfo is a command thats built into SherbertBot for helping users find information about the server there in and admins to obtain statistics about there servers', 'SherbertBot V1.0.0');
 
 		const userinfInfoEmbed = new SherbertBotEmbedHelpPage('userinfo', 'type /userinfo and in the "user" option, type the user you want info about', 'one argument', 'userinfo is a command thats built into SherbertBot for helping users find information about other users', 'SherbertBot V1.0.0');
-		
+
 		const banInfoEmbed = new SherbertBotEmbedHelpPage('ban', 'type /ban and in the "user" option, type the user you want to ban from the server, and you can optionally, in the "reason" option, type why you are banning them', 'one required argument and one optional argument', ':rotating_light: Warning :rotating_light: this action will prevent the user from coming back into the server unless you unban them!\n\n ban is a command thats built into SherbertBot for helping admins maintain order in there servers through discord banning system, once a user has been banned, they cannot join back into the server unless the ban is removed, which can be done by using the /unban command, you CAN NOT ban SherbertBot or anyone with administrator privileges', 'SherbertBot V1.0.0');
 
 		const unbanInfoEmbed = new SherbertBotEmbedHelpPage('unban', 'type /unban and in the "user" option, type the user you want to unban from the server', 'one argument', ':rotating_light: Warning :rotating_light: this action will allow the user to come back to the server unless there banned again!\n\n unban is a command thats built into SherbertBot for helping admins maintain order in there servers through discord banning system, this the second addition to SherbertBots moderation system banning commands, use this command to allow banned users back into your server', 'SherbertBot V1.0.0');
 
 		const kickInfoEmbed = new SherbertBotEmbedHelpPage('kick', 'type /kick and in the "user" option, type the user you want to kick from the server, and optionally, in the "reason" option, type why you you are kicking them', 'one required argument and one optional argument', ':rotating_light: Warning :rotating_light: this action will remove the user from the server, all users who have not friended this person will not be able to chat with them!\n\n kick is a command thats built into SherbertBot for helping admins maintain order in there servers through discord kicking system, this the thrid addition to SherbertBots moderation system', 'SherbertBot V1.0.0');
 
-		const addroleInfoEmbed = new SherbertBotEmbedHelpPage('addrole', 'type /addrole and in the "user" option, type the user you want to give a role too, and in the "role" option, type the role you want to give and in the "reason" option you can say why you are giving your user that role', 'two required arguments and one optional argument', 'addrole is a command thats built into SherbertBot for helping admins by allowing them to easily give roles to users, however, this command with not work with any command that is above its role place', 'SherbertBot V1.0.0')
+		const addroleInfoEmbed = new SherbertBotEmbedHelpPage('addrole', 'type /addrole and in the "user" option, type the user you want to give a role too, and in the "role" option, type the role you want to give and in the "reason" option you can say why you are giving your user that role', 'two required arguments and one optional argument', 'addrole is a command thats built into SherbertBot for helping admins by allowing them to easily give roles to users, however, this command with not work with any command that is above its role place', 'SherbertBot V1.0.0');
 
-		const createroleInfoEmbed = new SherbertBotEmbedHelpPage('createrole', 'type /createrole and in the "name" option, type the name of the role you want to create', 'one argument', 'createrole is a command thats built into SherbertBot for helping admins by allowing them to easily create roles for users', 'SherbertBot V1.0.0')
-		
-		
+		const createroleInfoEmbed = new SherbertBotEmbedHelpPage('createrole', 'type /createrole and in the "name" option, type the name of the role you want to create', 'one argument', 'createrole is a command thats built into SherbertBot for helping admins by allowing them to easily create roles for users', 'SherbertBot V1.0.0');
+
 		await interaction.reply({ embeds: [homeEmbed], components: [row2], ephemeral: true });
 
 		client.on('interactionCreate', async inter => {
@@ -141,51 +140,50 @@ module.exports = {
 				await inter.update({ embeds: [utilListEmbed], components: [row1], ephemeral: true });
 			}
 			return 0;
-		})
+		});
 
 		client.on('interactionCreate', async inter => {
 			if (!inter.isSelectMenu()) return;
 
-			switch(inter.values[0]) {
-				case 'cmdlist':
-					await inter.update({ embeds: [utilListEmbed], components: [row1], ephemeral: true });
-					break;
-				case 'ban':
-					await inter.update({ embeds: [banInfoEmbed], components: [row1], ephemeral: true });
-					break;
-				case 'unban':
-					await inter.update({ embeds: [unbanInfoEmbed], components: [row1], ephemeral: true });
-					break;
-				case 'ping':
-					await inter.update({ embeds: [pingInfoEmbed], components: [row1], ephemeral: true });
-					break;
-				case 'help':
-					await inter.update({ embeds: [helpInfoEmbed], components: [row1], ephemeral: true });
-					break;
-				case 'serverinfo':
-					await inter.update({ embeds: [serverinfInfoEmbed], components: [row1], ephemeral: true });
-					break;
-				case 'userinfo':
-					await inter.update({ embeds: [userinfInfoEmbed], components: [row1], ephemeral: true });
-					break;
-				case 'kick':
-					await inter.update({ embeds: [kickInfoEmbed], components: [row1], ephemeral: true });
-					break;
-				case 'addrole':
-					await inter.update({ embeds: [addroleInfoEmbed], components: [row1], ephemeral: true });
-					break;
-				case 'createrole':
-					await inter.update({ embeds: [createroleInfoEmbed], components: [row1], ephemeral: true });
-					break;
-				case 'back-to-menu':
-					await inter.update({ embeds: [homeEmbed], components: [row2], ephemeral: true });
-					break;
-				default:
-					break;
+			switch (inter.values[0]) {
+			case 'cmdlist':
+				await inter.update({ embeds: [utilListEmbed], components: [row1], ephemeral: true });
+				break;
+			case 'ban':
+				await inter.update({ embeds: [banInfoEmbed], components: [row1], ephemeral: true });
+				break;
+			case 'unban':
+				await inter.update({ embeds: [unbanInfoEmbed], components: [row1], ephemeral: true });
+				break;
+			case 'ping':
+				await inter.update({ embeds: [pingInfoEmbed], components: [row1], ephemeral: true });
+				break;
+			case 'help':
+				await inter.update({ embeds: [helpInfoEmbed], components: [row1], ephemeral: true });
+				break;
+			case 'serverinfo':
+				await inter.update({ embeds: [serverinfInfoEmbed], components: [row1], ephemeral: true });
+				break;
+			case 'userinfo':
+				await inter.update({ embeds: [userinfInfoEmbed], components: [row1], ephemeral: true });
+				break;
+			case 'kick':
+				await inter.update({ embeds: [kickInfoEmbed], components: [row1], ephemeral: true });
+				break;
+			case 'addrole':
+				await inter.update({ embeds: [addroleInfoEmbed], components: [row1], ephemeral: true });
+				break;
+			case 'createrole':
+				await inter.update({ embeds: [createroleInfoEmbed], components: [row1], ephemeral: true });
+				break;
+			case 'back-to-menu':
+				await inter.update({ embeds: [homeEmbed], components: [row2], ephemeral: true });
+				break;
+			default:
+				break;
 			}
 
 			/*
-			
 			if (inter.values[0] === 'cmdlist') {
 				await inter.update({ embeds: [utilListEmbed], components: [row1] });
 				return 0;

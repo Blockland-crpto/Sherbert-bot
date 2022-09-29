@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const keyv = require('keyv');
+
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -22,12 +22,7 @@ module.exports = {
 			return 1;
 		}
 		else if (!userm.manageable) {
-			await interaction.reply({ content: `Were sorry, but you cannot ban ${user}, they have more permissions then SherbertBot, please try again`, ephemeral: true });
-			return 1;
-		}
-		else if (interaction.user.id === user.id) {
-			await interaction.reply({ content: 'Were sorry, but you cannot ban yourself, please try again', ephemeral: true })
-				.catch(console.error);
+			await interaction.reply({ content: `Were sorry, but you cannot ban ${user}, they have more permissions then SherbertBot, are the owner, or you tried to ban yourself please try again`, ephemeral: true });
 			return 1;
 		}
 		else if (client.user.id === user.id) {

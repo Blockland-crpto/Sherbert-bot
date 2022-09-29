@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, quote, PermissionsBitField, SelectMenuBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, ActionRowBuilder, ComponentType, ButtonBuilder, ButtonStyle, EmbedBuilder, PermissionsBitField, SelectMenuBuilder } = require('discord.js');
 const { embedColor, embedAuthorName } = require('../config.json');
 
 module.exports = {
@@ -12,18 +12,12 @@ module.exports = {
 		.setDefaultMemberPermissions(PermissionFlagsBits.ManageRoles),
 	async execute(interaction, client) {
 		const permValue = [];
-		const name = interaction.options.getString('name');
-		const eName = quote(name);
+		const eName = interaction.options.getString('name');
 		const roleCreateEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('role creation')
 			.setAuthor({ name: embedAuthorName })
-			.setDescription(`Welcome to SherbertBots Role Creation App! in order to create the role, please select the permissions that the ${eName} role should have`);
-		const nullPermEmbed = new EmbedBuilder()
-			.setColor(embedColor)
-			.setTitle('error')
-			.setAuthor({ name: embedAuthorName })
-			.setDescription('Were sorry, but you cannot make a role without selecting permissions');
+			.setDescription(`Welcome to SherbertBots Role Creation App! in order to create the role ${eName}, please select the permissions that the ${eName} role should have`);
 		const endedEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('ended')
@@ -93,30 +87,16 @@ module.exports = {
 		const completeButtonRow = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
-					.setCustomId('complete')
-					.setLabel('Done')
-					.setStyle(ButtonStyle.Success),
-				new ButtonBuilder()
 					.setCustomId('cancel')
 					.setLabel('Quit')
 					.setStyle(ButtonStyle.Danger),
 			);
 
-		const okButtonRow = new ActionRowBuilder()
-			.addComponents(
-				new ButtonBuilder()
-					.setCustomId('dismiss')
-					.setLabel('Ok')
-					.setStyle(ButtonStyle.Success),
-			);
 
-		await interaction.reply({ embeds: [roleCreateEmbed], components: [permsSelectRow, completeButtonRow], ephemeral: true });
-
-		client.on('interactionCreate', async inte => {
-			console.log(inte.values);
-			if (!inte.isSelectMenu()) return;
-
-			inte.values.forEach(string => {
+		const message = await interaction.reply({ embeds: [roleCreateEmbed], components: [permsSelectRow, completeButtonRow], ephemeral: true });
+		const collector = message.createMessageComponentCollector({ componentType: ComponentType.SelectMenu, time: 15000 });
+		collector.on('collect', async i => {
+			i.values.forEach(string => {
 				if (string === 'artm') {
 					permValue.push(PermissionsBitField.Flags.AddReactions);
 				}
@@ -145,36 +125,15 @@ module.exports = {
 					permValue.push(PermissionsBitField.Flags.ManageChannels);
 				}
 			});
-			console.log(permValue.toString());
-		});
 
-		client.on('interactionCreate', async inter => {
-			if (!inter.isButton()) return;
-			if (inter.customId === 'complete') {
-				if (permValue === null) {
-					await inter.update({ embeds: [nullPermEmbed], components: [okButtonRow], ephemeral: true });
-					return 1;
-				}
-				else {
-					/*
-					const finalVal = [];
-					permValue.forEach(perm => {
-						const perms = new PermissionsBitField(perm);
-						finalVal.push(perms);
-					})
-					*/
-					console.log(permValue.toString());
-					interaction.guild.roles.create({ name: name, permissions: permValue });
-					await inter.update({ embeds: [roleCompletedEmbed], components: [], ephemeral: true });
-					return 0;
-				}
-			}
-			else if (inter.customId === 'cancel') {
-				await inter.update({ embeds: [endedEmbed], components: [], ephemeral: true });
-				return 0;
-			}
-			else if (inter.customId === 'dismiss') {
-				await inter.update({ embeds: [roleCreateEmbed], components: [permsSelectRow, completeButtonRow], ephemeral: true });
+			interaction.guild.roles.create({ name: eName, permissions: permValue });
+			await i.update({ embeds: [roleCompletedEmbed], components: [], ephemeral: true });
+			return 0;
+		});
+		const buttonCollector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
+		buttonCollector.on('collect', async i => {
+			if (i.customId === 'cancel') {
+				await i.update({ embeds: [endedEmbed], components: [], ephemeral: true });
 				return 0;
 			}
 		});

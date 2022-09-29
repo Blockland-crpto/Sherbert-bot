@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ComponentType, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { embedColor, embedAuthorName } = require('../config.json');
 
 module.exports = {
@@ -24,7 +24,6 @@ module.exports = {
 		const targetUser = interaction.options.getUser('user');
 		const targetRoles = interaction.options.getRole('role');
 		const reason = interaction.options.getString('reason');
-		const invoker = interaction.user;
 		const invokerM = interaction.member;
 		const adminGiveConfirmEmbed = new EmbedBuilder()
 			.setColor(embedColor)
@@ -60,10 +59,6 @@ module.exports = {
 			.setAuthor({ name: embedAuthorName })
 			.setDescription(`${targetUser} did not get the ${targetRoles} role as the app was cancelled`)
 			.setTimestamp();
-		const lowPermsUserErrorEmbed = new EmbedBuilder()
-			.setColor(embedColor)
-			.setTitle('error')
-			.setAuthour({ name: embedAuthorName })
 		const confirmRow = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
@@ -76,16 +71,19 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger),
 			);
 
-		if (reason.includes('?')) {
-			questionMarkError(interaction)
+		// checked
+		if (reason && reason.includes('?')) {
+			questionMarkError(interaction);
 			return 1;
 		}
 
+		// checked
 		if (targetMember.roles.cache.some(role => role.name === targetRoles.name)) {
 			alreadyHasRoleError(interaction);
 			return 1;
 		}
 
+		// checked
 		if (!targetRoles.editable) {
 			lowPermsBotError(interaction);
 			return 1;
@@ -96,11 +94,10 @@ module.exports = {
 				await interaction.reply({ content: 'Were sorry, but you do not have the permissions to give this role to anyone', ephemeral: true });
 				return 1;
 			}
-			await interaction.reply({ embeds: [adminGiveConfirmEmbed], components: [confirmRow], ephemeral: true });
-			let collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
+			const message = await interaction.reply({ embeds: [adminGiveConfirmEmbed], components: [confirmRow], ephemeral: true });
+			const collector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
 			collector.on('collect', async i => {
 				if (i.customId === 'confirm') {
-					collector = null;
 					if (reason !== null) {
 						targetMember.roles.add(targetRoles, reason);
 						await i.update({ embeds: [successGiveEmbedR], components: [], ephemeral: true });
@@ -111,16 +108,16 @@ module.exports = {
 					}
 				}
 				else if (i.customId === 'decline') {
-					collector = null;
 					await i.update({ embeds: [cancelledGiveEmbed], components: [], ephemeral: true });
 				}
-				return 0;
 			});
 
-			client.on('interactionCreate', async inter => {
-				console.log(`${inter} has occured, closing buttons`);
-				collector = null;
-				return 0;
+			collector.on('end', collected => {
+				if (collected === null) {
+					interaction.followUp('Were sorry, but you did not respond in time, we did not give the role');
+					return 1;
+				}
+				return;
 			});
 		}
 
@@ -129,42 +126,41 @@ module.exports = {
 				await interaction.reply({ content: 'Were sorry, but you do not have the permissions to give this role to anyone', ephemeral: true });
 				return 1;
 			}
-			await interaction.reply({ embeds: [banGiveConfirmEmbed], components: [confirmRow], ephemeral: true });
-			let collector = interaction.channel.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
+			const message = await interaction.reply({ embeds: [banGiveConfirmEmbed], components: [confirmRow], ephemeral: true });
+			const collector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
 			collector.on('collect', async i => {
 				if (i.customId === 'confirm') {
-					collector = null;
 					if (reason !== null) {
 						targetMember.roles.add(targetRoles, reason);
-						await interaction.update({ embeds: [successGiveEmbedR], components: [], ephemeral: true });
+						await i.update({ embeds: [successGiveEmbedR], components: [], ephemeral: true });
 					}
 					else if (reason === null) {
 						targetMember.roles.add(targetRoles);
-						await interaction.update({ embeds: [successGiveEmbedN], components: [], ephemeral: true });
+						await i.update({ embeds: [successGiveEmbedN], components: [], ephemeral: true });
 					}
 				}
 				else if (i.customId === 'decline') {
-					collector = null;
-					await interaction.update({ embeds: [cancelledGiveEmbed], components: [], ephemeral: true });
+					await i.update({ embeds: [cancelledGiveEmbed], components: [], ephemeral: true });
 				}
-				return 0;
 			});
 
-			client.on('interactionCreate', async inter => {
-				console.log(`${inter} has occured, closing buttons`);
-				collector = null;
-				return 0;
+			collector.on('end', collected => {
+				if (collected === null) {
+					interaction.followUp('Were sorry, but you did not respond to this message, we did not give the role');
+					return 1;
+				}
+				return;
 			});
 		}
 		else {
 			targetUser.send(`Hello ${targetUser}! we just wanted to let you know that you have received a new role in ${interaction.guild.name}!`);
 			if (reason != null) {
 				targetMember.roles.add(targetRoles, reason);
-				await interaction.update({ embeds: [successGiveEmbedR], components: [], ephemeral: true });
+				await interaction.reply({ embeds: [successGiveEmbedR], components: [], ephemeral: true });
 			}
 			else if (reason === null) {
 				targetMember.roles.add(targetRoles);
-				await interaction.update({ embeds: [successGiveEmbedN], components: [], ephemeral: true });
+				await interaction.reply({ embeds: [successGiveEmbedN], components: [], ephemeral: true });
 			}
 			return 0;
 		}
@@ -173,35 +169,37 @@ module.exports = {
 			console.error('Websocket encountered an error', error);
 		});
 
-		async function questionMarkError(interaction) {
+		return 0;
+
+		async function questionMarkError(miniinteraction) {
 			const questionMarkErrorEmbed = new EmbedBuilder()
 				.setColor(embedColor)
 				.setTitle('error')
 				.setAuthor({ name: embedAuthorName })
 				.setDescription('Were sorry, but you cannot put question marks in the reason option, please try again')
 				.setTimestamp();
-			await interaction.reply({ embeds: [questionMarkErrorEmbed], ephemeral: true });
+			await miniinteraction.reply({ embeds: [questionMarkErrorEmbed], ephemeral: true });
 			return 0;
 		}
 
-		async function alreadyHasRoleError(interaction) {
+		async function alreadyHasRoleError(miniinteraction) {
 			const alreadyHasRoleErrorEmbed = new EmbedBuilder()
 				.setColor(embedColor)
 				.setTitle('error')
 				.setAuthor({ name: embedAuthorName })
 				.setDescription(`Were sorry, but you cannot give ${targetUser} the ${targetRoles} role, they already have this role`);
-			await interaction.reply({ embeds: [alreadyHasRoleErrorEmbed] , ephemeral: true });
+			await miniinteraction.reply({ embeds: [alreadyHasRoleErrorEmbed], ephemeral: true });
 			return 0;
 		}
 
-		async function lowPermsBotError(interaction) {
+		async function lowPermsBotError(miniinteraction) {
 			const lowPermsBotErrorEmbed = new EmbedBuilder()
 				.setColor(embedColor)
 				.setTitle('error')
 				.setAuthor({ name: embedAuthorName })
 				.setDescription(`Were sorry, but we cannot give ${targetUser} the ${targetRoles} role, this needs permissions that SherbertBot does not have`);
-			await interaction.reply({ embeds: [lowPermsBotErrorEmbed] , ephemeral: true });
-			return o;			
+			await miniinteraction.reply({ embeds: [lowPermsBotErrorEmbed], ephemeral: true });
+			return;
 		}
 	},
 };
