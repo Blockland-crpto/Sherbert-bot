@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits, PermissionsBitField, EmbedBuilder } = require('discord.js');
 const { embedColor } = require('../config.json');
 
+
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('unban')

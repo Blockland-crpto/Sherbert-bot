@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const keyv = require('keyv');
 
 module.exports = {
 	data: new SlashCommandBuilder()

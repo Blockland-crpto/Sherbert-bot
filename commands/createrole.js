@@ -156,6 +156,14 @@ module.exports = {
 					return 1;
 				}
 				else {
+					/*
+					const finalVal = [];
+					permValue.forEach(perm => {
+						const perms = new PermissionsBitField(perm);
+						finalVal.push(perms);
+					})
+					*/
+					console.log(permValue.toString());
 					interaction.guild.roles.create({ name: name, permissions: permValue });
 					await inter.update({ embeds: [roleCompletedEmbed], components: [], ephemeral: true });
 					return 0;

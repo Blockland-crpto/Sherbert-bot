@@ -60,12 +60,10 @@ module.exports = {
 			.setAuthor({ name: embedAuthorName })
 			.setDescription(`${targetUser} did not get the ${targetRoles} role as the app was cancelled`)
 			.setTimestamp();
-		const questionMarkErrorEmbed = new EmbedBuilder()
+		const lowPermsUserErrorEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('error')
-			.setAuthor({ name: embedAuthorName })
-			.setDescription('Were sorry, but you cannot put question marks in the reason option, please try again')
-			.setTimestamp();
+			.setAuthour({ name: embedAuthorName })
 		const confirmRow = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
@@ -79,17 +77,17 @@ module.exports = {
 			);
 
 		if (reason.includes('?')) {
-			await interaction.reply({ embeds: [questionMarkErrorEmbed], ephemeral: true });
+			questionMarkError(interaction)
 			return 1;
 		}
 
 		if (targetMember.roles.cache.some(role => role.name === targetRoles.name)) {
-			await interaction.reply({ content: `Were sorry, but you cannot give ${targetUser} the ${targetRoles} role, they already have this role`, ephemeral: true });
+			alreadyHasRoleError(interaction);
 			return 1;
 		}
 
 		if (!targetRoles.editable) {
-			await interaction.reply({ content: `Were sorry, but we cannot give ${targetUser} the ${targetRoles} role, this needs permissions that SherbertBot does not have`, ephemeral: true });
+			lowPermsBotError(interaction);
 			return 1;
 		}
 
@@ -174,5 +172,36 @@ module.exports = {
 		client.on('shardError', error => {
 			console.error('Websocket encountered an error', error);
 		});
+
+		async function questionMarkError(interaction) {
+			const questionMarkErrorEmbed = new EmbedBuilder()
+				.setColor(embedColor)
+				.setTitle('error')
+				.setAuthor({ name: embedAuthorName })
+				.setDescription('Were sorry, but you cannot put question marks in the reason option, please try again')
+				.setTimestamp();
+			await interaction.reply({ embeds: [questionMarkErrorEmbed], ephemeral: true });
+			return 0;
+		}
+
+		async function alreadyHasRoleError(interaction) {
+			const alreadyHasRoleErrorEmbed = new EmbedBuilder()
+				.setColor(embedColor)
+				.setTitle('error')
+				.setAuthor({ name: embedAuthorName })
+				.setDescription(`Were sorry, but you cannot give ${targetUser} the ${targetRoles} role, they already have this role`);
+			await interaction.reply({ embeds: [alreadyHasRoleErrorEmbed] , ephemeral: true });
+			return 0;
+		}
+
+		async function lowPermsBotError(interaction) {
+			const lowPermsBotErrorEmbed = new EmbedBuilder()
+				.setColor(embedColor)
+				.setTitle('error')
+				.setAuthor({ name: embedAuthorName })
+				.setDescription(`Were sorry, but we cannot give ${targetUser} the ${targetRoles} role, this needs permissions that SherbertBot does not have`);
+			await interaction.reply({ embeds: [lowPermsBotErrorEmbed] , ephemeral: true });
+			return o;			
+		}
 	},
 };
