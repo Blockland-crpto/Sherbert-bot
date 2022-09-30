@@ -1,5 +1,5 @@
-const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-
+const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require('discord.js');
+const { embedColor, embedAuthorName } = require('../config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -18,8 +18,17 @@ module.exports = {
 		const user = interaction.options.getUser('user');
 		const userm = interaction.options.getMember('user');
 		const reason = interaction.options.getString('reason');
+		const banSelfErrorEmbed = new EmbedBuilder()
+			.setColor(embedColor)
+			.setTitle('error')
+			.setAuthor({ name: embedAuthorName })
+			.setDescription('Were sorry, but you cannot ban yourself, please try again')
+		
 		if (!interaction.guild.available) {
 			return 1;
+		}
+		else if (interaction.user.id === user.id) {
+			await interaction.reply({ embeds: [] })
 		}
 		else if (!userm.manageable) {
 			await interaction.reply({ content: `Were sorry, but you cannot ban ${user}, they have more permissions then SherbertBot, are the owner, or you tried to ban yourself please try again`, ephemeral: true });

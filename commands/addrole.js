@@ -71,24 +71,14 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger),
 			);
 
-		// checked
-		if (reason && reason.includes('?')) {
-			questionMarkError(interaction);
-			return 1;
+		try {
+			init(interaction);
 		}
-
-		// checked
-		if (targetMember.roles.cache.some(role => role.name === targetRoles.name)) {
-			alreadyHasRoleError(interaction);
-			return 1;
+		catch (error) {
+			//todo: throw a error
 		}
-
-		// checked
-		if (!targetRoles.editable) {
-			lowPermsBotError(interaction);
-			return 1;
-		}
-
+		
+		
 		if (targetRoles.permissions.has(PermissionFlagsBits.Administrator)) {
 			if (!invokerM.permissions.has(PermissionFlagsBits.Administrator)) {
 				await interaction.reply({ content: 'Were sorry, but you do not have the permissions to give this role to anyone', ephemeral: true });
@@ -171,35 +161,49 @@ module.exports = {
 
 		return 0;
 
-		async function questionMarkError(miniinteraction) {
+		async function init(interaction) {
 			const questionMarkErrorEmbed = new EmbedBuilder()
 				.setColor(embedColor)
 				.setTitle('error')
 				.setAuthor({ name: embedAuthorName })
 				.setDescription('Were sorry, but you cannot put question marks in the reason option, please try again')
 				.setTimestamp();
-			await miniinteraction.reply({ embeds: [questionMarkErrorEmbed], ephemeral: true });
-			return 0;
-		}
 
-		async function alreadyHasRoleError(miniinteraction) {
 			const alreadyHasRoleErrorEmbed = new EmbedBuilder()
 				.setColor(embedColor)
 				.setTitle('error')
 				.setAuthor({ name: embedAuthorName })
 				.setDescription(`Were sorry, but you cannot give ${targetUser} the ${targetRoles} role, they already have this role`);
-			await miniinteraction.reply({ embeds: [alreadyHasRoleErrorEmbed], ephemeral: true });
-			return 0;
-		}
 
-		async function lowPermsBotError(miniinteraction) {
 			const lowPermsBotErrorEmbed = new EmbedBuilder()
 				.setColor(embedColor)
 				.setTitle('error')
 				.setAuthor({ name: embedAuthorName })
 				.setDescription(`Were sorry, but we cannot give ${targetUser} the ${targetRoles} role, this needs permissions that SherbertBot does not have`);
-			await miniinteraction.reply({ embeds: [lowPermsBotErrorEmbed], ephemeral: true });
-			return;
+
+			const questionMarkError = new Error('User inputed question mark in reason option')
+
+			async function initCheck() {
+				// checked
+				if (reason && reason.includes('?')) {
+					await interaction.reply({ embeds: [questionMarkErrorEmbed], ephemeral: true });
+					
+				}
+				else if (targetMember.roles.cache.some(role => role.name === targetRoles.name)) {
+					await interaction.reply({ embeds: [alreadyHasRoleErrorEmbed], ephemeral: true });
+					return 1;
+				}
+				else if (!targetRoles.editable) {
+					await interaction.reply({ embeds: [lowPermsBotErrorEmbed], ephemeral: true });
+					return 1;
+				}
+				else {
+					return 0;
+				}
+			}
+
+			initCheck();
 		}
+
 	},
 };

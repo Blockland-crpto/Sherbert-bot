@@ -1,12 +1,13 @@
-const { Client, GatewayIntentBits, Collection, EmbedBuilder, AttachmentBuilder } = require('discord.js');
-const { token, embedColor } = require('./config.json');
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const { token } = require('./config.json');
 const process = require('node:process');
 const path = require('node:path');
 const fs = require('node:fs');
 const keyv = require('keyv');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildBans] });
-const db = new keyv('sqlite://res/db/db.sqlite');
+const dbPath = path.join(__dirname, 'commands/assets/res/db/db.sqlite');
+const db = new keyv(`sqlite://${dbPath}`);
 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
@@ -15,14 +16,15 @@ client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-const resImgPath = path.join(__dirname, 'res/imgs/erroricon.png');
+const resImgPath = path.join(__dirname, 'commands/assets/imgs/erroricon.png');
+
 class SherbertBotEmbedErrorPage {
 	constructor(errorName, errorCode, errorMsg, interaction) {
 		const errorIconFile = new AttachmentBuilder(resImgPath);
 		const errorEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('Bug Report')
-			.setAuthor({ name: 'SherbertBot' })
+			.setAuthor({ name: embedAuthorName })
 			.setDescription('Were sorry, but a error occured, please try again later, heres is some log info')
 			.setThumbnail('attachment://erroricon.png')
 			.addFields(
@@ -42,8 +44,6 @@ class SherbertBotEmbedErrorPage {
 			interaction.followUp({ embeds: [errorEmbed], files: [errorIconFile], ephemeral: true });
 			return;
 		}
-
-
 	}
 }
 
@@ -86,4 +86,6 @@ process.on('unhandledRejection', error => {
 	console.error('A unhandledRejection occured:', error);
 });
 
-db.on('error', error => console.error(`Keyv connection error ${error}`));
+db.on('error', error => {
+	console.error(`Keyv connection error ${error}`);
+});

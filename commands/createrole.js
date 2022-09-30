@@ -34,53 +34,212 @@ module.exports = {
 					.setCustomId('perms')
 					.setPlaceholder('No permissions selected')
 					.setMinValues(1)
-					.setMaxValues(9)
 					.addOptions([
 						{
 							label: 'add reactions to messages',
 							description: 'Allows the user to add reactions to messages',
-							value: 'artm',
+							value: 'addreactionstomessages',
 						},
 						{
 							label: 'administrator permissions',
 							description: 'Allows the user who has this role to have all the permissions',
-							value: 'admin',
+							value: 'administrator',
 						},
 						{
 							label: 'attach files',
 							description: 'Allows the user who has this role to attach files to messages',
-							value: 'af',
+							value: 'attachfiles',
 						},
 						{
 							label: 'banning permissions',
 							description: 'Allows the user who has this role to ban/unban users from your server',
-							value: 'bp',
+							value: 'banningpermissions',
 						},
 						{
-							label: 'change nicknames',
-							description: 'Allows the user who has this role to change the nicknames of users below there role',
-							value: 'cn',
+							label: 'change their own nickname',
+							description: 'Allows the user who has this role to change their own nickname',
+							value: 'changetheirownnickname',
 						},
 						{
 							label: 'connect to voice channels',
 							description: 'Allows the user who has this role to join voice channels (does not apply to private ones)',
-							value: 'ctvc',
+							value: 'connecttovoicechannels',
 						},
 						{
-							label: 'kicking permissions',
+							label: 'create invites to the server',
+							descirption: 'Allows the user who has this role to create invitations to your server',
+							value: 'createinvitestotheserver'
+						},
+						{
+							label: 'create private threads',
+							description: 'Allows the user who has this role to create a private thread in your server',
+							value: 'createprivatethreads'
+						},
+						{
+							label: 'create public threads',
+							description: 'Allows the user who has this role to create a public thread in your server',
+							value: 'createpublicthreads'
+						},
+						{
+							label: 'deafen members',
+							description: 'Allows the user who has this role to deafen members below the user',
+							value: 'deafenmembers'
+						},
+						{
+							label: 'embed links',
+							description: 'Allows the user who has this role to send embeded links in chat',
+							value: 'embedlinks',
+						},
+						{
+							label: 'kick members',
 							description: 'Allows the user who has this role to kick users from your server',
-							value: 'kp',
+							value: 'kickmembers',
 						},
 						{
-							label: 'manage roles permissions',
-							description: 'Allows the user who has this role to manage roles that are below them in rank',
-							value: 'mrp',
-						},
-						{
-							label: 'manage channel permissions',
+							label: 'manage channel',
 							description: 'Allows the user who has this role to manage channels',
-							value: 'mcp',
+							value: 'managechannel',
 						},
+						{
+							label: 'manage emojis and stickers',
+							description: 'Allows the user who has this role to remove and create emojis and stickers in your server',
+							value: 'manageemojisandstickers'
+						},
+						{
+							label: 'manage events',
+							description: 'Allows the user who has this role to manage events in your server',
+							value: 'manageevents'
+						},
+						{
+							label: 'manage server',
+							description: 'Allows the user who has this role to manage your server (i.e add bots, create channels, etc)',
+							value: 'manageguild',
+						},
+						{
+							label: 'manage messages',
+							description: 'Allows the user who has this role to delete and edit messages sent by users lower then there rank',
+							value: 'managemessages',
+						},
+						{
+							label: 'manage nicknames',
+							description: 'Allows the user who has this role to manage others nicknames below there rank',
+							value: 'managenicknames',
+						},
+						{
+							label: 'manage roles',
+							description: 'Allows the user who has this role to manage roles that are below them in rank',
+							value: 'manageroles',
+						},
+						{
+							label: 'manage threads',
+							description: 'Allows the user who has this role to manage threads created by users below them in rank',
+							value: 'managethreads',
+						},
+						{
+							label: 'manage webhooks',
+							description: 'Allows the user who has this role to manage webhooks created by users below them in rank',
+							value: 'managewebhooks',
+						},
+						{
+							label: 'mention everyone',
+							description: 'Allows the user who has this role to mention all the users in the server',
+							value: 'mentioneveryone',
+						},
+						{
+							label: 'moderate members',
+							description: 'Allows the user who has this role to moderate users below there rank',
+							value: 'moderatemembers',
+						},
+						{
+							label: 'move members',
+							description: 'Allows the user who has this role to move members who are below them in rank from one voice channel to another',
+							value: 'movemembers',
+						},
+						{
+							label: 'mute members',
+							description: 'Allows the user who has this role to mute members who are below them in rank in voice channels',
+							value: 'mutemembers',
+						},
+						{
+							label: 'priority speaker',
+							description: 'Allows the user who has this role to use the priority speaker feature',
+							value: 'priorityspeaker'
+						},
+						{
+							label: 'read message history',
+							description: 'Allows the user who has this role to ready past messages',
+							value: 'readmessagehistory',
+						},
+						{
+							label: 'request to speak',
+							description: 'Allows the user who has this role to request to speak in stage voice channels',
+							value: 'requesttospeak',
+						},
+						{
+							label: 'send messages',
+							description: 'Allows the user who has this role to send messages in any channel (except private channels)',
+							value: 'sendmessages',
+						},
+						{
+							label: 'send messages in threads',
+							description: 'Allows the user who has this role to send messages in any thread (except private threads)',
+							value: 'sendmessagesinthreads',
+						},
+						{
+							label: 'send text-to-speech messages',
+							description: 'Allows the user who has this role to send text to speech messages',
+							value: 'sendttsmessages',
+						},
+						{
+							label: 'speak',
+							description: 'Allows the user who has this role to speak in voice channels',
+							value: 'speak',
+						},
+						{
+							label: 'stream',
+							description: 'Allows the user who has this role to live stream in voice channels',
+							value: 'stream',
+						},
+						{
+							label: 'use app commands',
+							description: 'Allows the user who has this role to use app commands',
+							value: 'useapplicationcommands',
+						},
+						{
+							label: 'use embedded apps',
+							description: 'Allows the user who has this role to use embedded apps (note that sherbertbot will not work properly for users without this permissions)',
+							value: 'useembeddedactivities',
+						},
+						{
+							label: 'use external emojis',
+							description: 'Allows the user who has this role to use emojis from other servers',
+							value: 'useexternalemojis',
+						},
+						{
+							label: 'use external stickers',
+							description: 'Allows the user who has this role to use stickers from other servers',
+							value: 'useexternalstickers',
+						},
+						{
+							label: 'use voice activity dectection',
+							description: 'Allows the user who has this role to use voice activity detection in voice chats',
+							value: 'usevad',
+						},
+						{
+							label: 'view audit log',
+							description: 'Allows the user who has this role to view the server audit log',
+							value: 'viewauditlog'
+						},
+						{
+							label: 'view channel',
+							description: 'Allows the user who has this role to view any channels (except private channels)',
+							value: 'viewchannel',
+						},
+						{
+							label: 'view server insights',
+							description: 'Allows the user who has this role to view your servers insights',
+							value: 'viewguildinsights',
+						}
 					]),
 			);
 
@@ -97,32 +256,128 @@ module.exports = {
 		const collector = message.createMessageComponentCollector({ componentType: ComponentType.SelectMenu, time: 15000 });
 		collector.on('collect', async i => {
 			i.values.forEach(string => {
-				if (string === 'artm') {
+				if (string === 'addreactionstomessages') {
 					permValue.push(PermissionsBitField.Flags.AddReactions);
 				}
-				else if (string === 'admin') {
+				else if (string === 'administrator') {
 					permValue.push(PermissionsBitField.Flags.Administrator);
 				}
-				else if (string === 'af') {
+				else if (string === 'attachfiles') {
 					permValue.push(PermissionsBitField.Flags.AttachFiles);
 				}
-				else if (string === 'bp') {
+				else if (string === 'banningpermissions') {
 					permValue.push(PermissionsBitField.Flags.BanMembers);
 				}
-				else if (string === 'cn') {
+				else if (string === 'changetheirownnickname') {
 					permValue.push(PermissionsBitField.Flags.ChangeNickname);
 				}
-				else if (string === 'ctvc') {
+				else if (string === 'connecttovoicechannels') {
 					permValue.push(PermissionsBitField.Flags.Connect);
 				}
-				else if (string === 'kp') {
+				else if (string === 'createinvitestotheserver') {
+					permValue.push(PermissionsBitField.Flags.CreateInstantInvite);
+				}
+				else if (string === 'createprivatethreads') {
+					permValue.push(PermissionsBitField.Flags.CreatePrivateThreads);
+				}
+				else if (string === 'createpublicthreads') {
+					permValue.push(PermissionsBitField.Flags.CreatePublicThreads);
+				}
+				else if (string === 'deafenmembers') {
+					permValue.push(PermissionsBitField.Flags.DeafenMembers);
+				}
+				else if (string === 'embedlinks') {
+					permValue.push(PermissionsBitField.Flags.EmbedLinks);
+				}
+				else if (string === 'kickmembers') {
 					permValue.push(PermissionsBitField.Flags.KickMembers);
 				}
-				else if (string === 'mrp') {
+				else if (string === 'managechannel') {
+					permValue.push(PermissionsBitField.Flags.ManageChannels);
+				}
+				else if (string === 'manageemojisandstickers') {
+					permValue.push(PermissionsBitField.Flags.ManageEmojisAndStickers);
+				}
+				else if (string === 'manageevents') {
+					permValue.push(PermissionsBitField.Flags.ManageEvents);
+				}
+				else if (string === 'manageguild') {
+					permValue.push(PermissionsBitField.Flags.ManageGuild);
+				}
+				else if (string === 'managemessages') {
+					permValue.push(PermissionsBitField.Flags.ManageMessages);
+				}
+				else if (string === 'managenicknames') {
+					permValue.push(PermissionsBitField.Flags.ManageNicknames);
+				}
+				else if (string === 'manageroles') {
 					permValue.push(PermissionsBitField.Flags.ManageRoles);
 				}
-				else if (string === 'mcp') {
-					permValue.push(PermissionsBitField.Flags.ManageChannels);
+				else if (string === 'managethreads') {
+					permValue.push(PermissionsBitField.Flags.ManageThreads);
+				}
+				else if (string === 'managewebhooks') {
+					permValue.push(PermissionsBitField.Flags.ManageWebhooks);
+				}
+				else if (string === 'mentioneveryone') {
+					permValue.push(PermissionsBitField.Flags.MentionEveryone);
+				}
+				else if (string === 'moderatemembers') {
+					permValue.push(PermissionsBitField.Flags.ModerateMembers);
+				}
+				else if (string === 'movemembers') {
+					permValue.push(PermissionsBitField.Flags.MoveMembers);
+				}
+				else if (string === 'mutemembers') {
+					permValue.push(PermissionsBitField.Flags.MuteMembers);
+				}
+				else if (string === 'priorityspeaker') {
+					permValue.push(PermissionsBitField.Flags.PrioritySpeaker);
+				}
+				else if (string === 'readmessagehistory') {
+					permValue.push(PermissionsBitField.Flags.ReadMessageHistory);
+				}
+				else if (string === 'requesttospeak') {
+					permValue.push(PermissionsBitField.Flags.RequestToSpeak);
+				}
+				else if (string === 'sendmessages') {
+					permValue.push(PermissionsBitField.Flags.SendMessages);
+				}
+				else if (string === 'sendmessagesinthreads') {
+					permValue.push(PermissionsBitField.Flags.SendMessagesInThreads);
+				}
+				else if (string === 'sendttsmessages') {
+					permValue.push(PermissionsBitField.Flags.SendTTSMessages);
+				}
+				else if (string === 'speak') {
+					permValue.push(PermissionsBitField.Flags.Speak);
+				}
+				else if (string === 'stream') {
+					permValue.push(PermissionsBitField.Flags.Stream);
+				}
+				else if (string === 'useapplicationcommands') {
+					permValue.push(PermissionsBitField.Flags.UseApplicationCommands);
+				}
+				else if (string === 'useembeddedactivities') {
+					permValue.push(PermissionsBitField.Flags.UseEmbeddedActivities);
+				}
+				else if (string === 'useexternalemojis') {
+					permValue.push(PermissionsBitField.Flags.UseExternalEmojis);
+				}
+				else if (string === 'useexternalstickers') {
+					permValue.push(PermissionsBitField.Flags.UseExternalStickers);
+				}
+				else if (string === 'usevad') {
+					permValue.push(PermissionsBitField.Flags.UseVAD);
+				}
+				else if (string === 'viewauditlog') {
+					permValue.push(PermissionsBitField.Flags.ViewAuditLog);
+				}
+				else if (string === 'viewchannel') {
+					permValue.push(PermissionsBitField.Flags.ViewChannel);
+				}
+				else if (string === 'viewguildinsights') {
+					permValue.push(PermissionsBitField.Flags.ViewGuildInsights);
 				}
 			});
 
