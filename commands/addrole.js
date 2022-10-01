@@ -71,14 +71,9 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger),
 			);
 
-		try {
-			init(interaction);
-		}
-		catch (error) {
-			//todo: throw a error
-		}
-		
-		
+		init(interaction);
+
+
 		if (targetRoles.permissions.has(PermissionFlagsBits.Administrator)) {
 			if (!invokerM.permissions.has(PermissionFlagsBits.Administrator)) {
 				await interaction.reply({ content: 'Were sorry, but you do not have the permissions to give this role to anyone', ephemeral: true });
@@ -161,7 +156,7 @@ module.exports = {
 
 		return 0;
 
-		async function init(interaction) {
+		async function init(minteraction) {
 			const questionMarkErrorEmbed = new EmbedBuilder()
 				.setColor(embedColor)
 				.setTitle('error')
@@ -181,20 +176,18 @@ module.exports = {
 				.setAuthor({ name: embedAuthorName })
 				.setDescription(`Were sorry, but we cannot give ${targetUser} the ${targetRoles} role, this needs permissions that SherbertBot does not have`);
 
-			const questionMarkError = new Error('User inputed question mark in reason option')
-
 			async function initCheck() {
 				// checked
 				if (reason && reason.includes('?')) {
-					await interaction.reply({ embeds: [questionMarkErrorEmbed], ephemeral: true });
-					
+					await minteraction.reply({ embeds: [questionMarkErrorEmbed], ephemeral: true });
+					return 1;
 				}
 				else if (targetMember.roles.cache.some(role => role.name === targetRoles.name)) {
-					await interaction.reply({ embeds: [alreadyHasRoleErrorEmbed], ephemeral: true });
+					await minteraction.reply({ embeds: [alreadyHasRoleErrorEmbed], ephemeral: true });
 					return 1;
 				}
 				else if (!targetRoles.editable) {
-					await interaction.reply({ embeds: [lowPermsBotErrorEmbed], ephemeral: true });
+					await minteraction.reply({ embeds: [lowPermsBotErrorEmbed], ephemeral: true });
 					return 1;
 				}
 				else {
@@ -203,6 +196,8 @@ module.exports = {
 			}
 
 			initCheck();
+
+			return 0;
 		}
 
 	},

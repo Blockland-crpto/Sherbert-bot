@@ -1,12 +1,19 @@
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
-const { token } = require('./config.json');
+const { Client, GatewayIntentBits, Collection, AttachmentBuilder, EmbedBuilder } = require('discord.js');
+const { token, embedColor, embedAuthorName } = require('./config.json');
 const process = require('node:process');
 const path = require('node:path');
 const fs = require('node:fs');
 const keyv = require('keyv');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.GuildBans] });
-const dbPath = path.join(__dirname, 'commands/assets/res/db/db.sqlite');
+const dbPath = path.join(__dirname, 'commands/assets/db/db.sqlite');
+if (!fs.existsSync(dbPath)) {
+	fs.open(dbPath, 'w', function(error, file) {
+		if (error) console.error(error);
+		console.log(`${file} created`);
+	});
+}
+
 const db = new keyv(`sqlite://${dbPath}`);
 
 const eventsPath = path.join(__dirname, 'events');

@@ -8,4 +8,4 @@ replit.nix
 cpuprofiles
 debug.log
 *.cpuprofile
-res/db/SHBdata.sqlite
+commands/assets/db/db.sqlite

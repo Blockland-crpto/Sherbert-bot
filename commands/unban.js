@@ -6,13 +6,14 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('unban')
 		.setDescription('Unbans a user from the server')
-		.addUserOption(opt =>
-			opt.setName('user')
-				.setDescription('the user you want to unban')
+		.addStringOption(opt =>
+			opt.setName('userid')
+				.setDescription('the id of the user you want to unban')
 				.setRequired(true))
 		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 	async execute(interaction, client) {
-		const user = interaction.options.getUser('user');
+		const id = interaction.options.getString('userid');
+		const user = client.users.fetch(id);
 		const notBannedErrorEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setName('error')
@@ -36,7 +37,8 @@ module.exports = {
 			.setFooter({ text: 'SherbertBot V1.0.0' });
 
 		try {
-			await interaction.guild.bans.fetch(user);
+			await interaction.guild.bans.fetch()
+				.then(console.log);
 		}
 		catch (error) {
 			if (error.code === 10026) {
