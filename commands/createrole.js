@@ -24,13 +24,8 @@ module.exports = {
 			.setColor(embedColor)
 			.setTitle('role creation')
 			.setAuthor({ name: embedAuthorName })
-			.setDescription(`Great! now please select the voice permissions that the ${eName} role should have`);
+			.setDescription(`Great! now please select the voice and mod permissions that the ${eName} role should have`);
 
-		const roleCompletedEmbed3 = new EmbedBuilder()
-			.setColor(embedColor)
-			.setTitle('role creation')
-			.setAuthor({ name: embedAuthorName })
-			.setDescription(`Last step! select in the command menu what admin and moderation permissions ${eName} should have, if none just open and close the menu`);
 
 		const endedEmbed = new EmbedBuilder()
 			.setColor(embedColor)
@@ -38,19 +33,19 @@ module.exports = {
 			.setAuthor({ name: embedAuthorName })
 			.setDescription('The app was cancelled, the role was not created');
 
+		/*
 		const outOfTimeEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('ended')
 			.setAuthor({ name: embedAuthorName })
 			.setDescription('The app got no responce, the role was not created');
+		*/
 
 		const roleCompletedEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('finished')
 			.setAuthor({ name: embedAuthorName })
 			.setDescription(`the role ${eName} has been added to ${interaction.guild.name}!`);
-
-
 
 		const permSelectOption1 = [
 			{
@@ -154,58 +149,6 @@ module.exports = {
 
 		const permSelectOption2 = [
 			{
-				label: 'connect to voice channels',
-				description: 'Allows the role to join voice channels (does not apply to private ones)',
-				value: 'connecttovoicechannels',
-				default: true,
-			},
-			{
-				label: 'deafen members',
-				description: 'Allows the role to deafen members below there rank',
-				value: 'deafenmembers',
-			},
-			{
-				label: 'move members',
-				description: 'Allows the role to move members from one voice channel to another',
-				value: 'movemembers',
-			},
-			{
-				label: 'mute members',
-				description: 'Allows the role to mute members who are below them in rank in voice channels',
-				value: 'mutemembers',
-			},
-			{
-				label: 'priority-speak',
-				description: 'Allows the role to use the priority speaker feature',
-				value: 'priorityspeaker',
-			},
-			{
-				label: 'request to speak',
-				description: 'Allows the role to request to speak in stage voice channels',
-				value: 'requesttospeak',
-			},
-			{
-				label: 'speak',
-				description: 'Allows the role to speak in voice channels',
-				value: 'speak',
-				default: true,
-			},
-			{
-				label: 'stream',
-				description: 'Allows the role to live stream in voice channels',
-				value: 'stream',
-				default: true,
-			},
-			{
-				label: 'use voice activity dectection',
-				description: 'Allows the role to use voice activity detection in voice chats',
-				value: 'usevad',
-				default: true,
-			},
-		];
-
-		const permSelectOption3 = [
-			{
 				label: 'administrator permissions',
 				description: 'Allows the role to have all the permissions',
 				value: 'administrator',
@@ -270,45 +213,86 @@ module.exports = {
 				description: 'Allows the role to view your servers insights',
 				value: 'viewguildinsights',
 			},
+			{
+				label: 'connect to voice channels',
+				description: 'Allows the role to join voice channels (does not apply to private ones)',
+				value: 'connecttovoicechannels',
+				default: true,
+			},
+			{
+				label: 'deafen members',
+				description: 'Allows the role to deafen members below there rank',
+				value: 'deafenmembers',
+			},
+			{
+				label: 'move members',
+				description: 'Allows the role to move members from one voice channel to another',
+				value: 'movemembers',
+			},
+			{
+				label: 'mute members',
+				description: 'Allows the role to mute members who are below them in rank in voice channels',
+				value: 'mutemembers',
+			},
+			{
+				label: 'priority-speak',
+				description: 'Allows the role to use the priority speaker feature',
+				value: 'priorityspeaker',
+			},
+			{
+				label: 'request to speak',
+				description: 'Allows the role to request to speak in stage voice channels',
+				value: 'requesttospeak',
+			},
+			{
+				label: 'speak',
+				description: 'Allows the role to speak in voice channels',
+				value: 'speak',
+				default: true,
+			},
+			{
+				label: 'stream',
+				description: 'Allows the role to live stream in voice channels',
+				value: 'stream',
+				default: true,
+			},
+			{
+				label: 'use voice activity dectection',
+				description: 'Allows the role to use voice activity detection in voice chats',
+				value: 'usevad',
+				default: true,
+			},
 		];
 
+		/*
 		const colorSelectOption = [
 			{
 				label: 'default',
 				description: 'select the default role color',
 
 			}
-		];
-
-		const permSelectMenu1 = new SelectMenuBuilder()
-			.setCustomId('basicPerms')
-			.setPlaceholder('No basic permissions selected')
-			.setMinValues(1)
-			.setMaxValues(permSelectOption1.length)
-			.addOptions(permSelectOption1);
-
-		const permSelectMenu2 = new SelectMenuBuilder()
-			.setCustomId('voicePerms')
-			.setPlaceholder('No voice permissions selected')
-			.setMinValues(1)
-			.setMaxValues(permSelectOption2.length)
-			.addOptions(permSelectOption2);
-
-		const permSelectMenu3 = new SelectMenuBuilder()
-			.setCustomId('smPerms'			
-			.setPlaceholder('No server management permissions selected')
-			.setMinValues(0)
-			.setMaxValues(permSelectOption3.length)
-			.addOptions(permSelectOption3);
+		]
+		*/
 
 		const permsSelectRow1 = new ActionRowBuilder()
-			.addComponents(permSelectMenu1);
+			.addComponents(
+				new SelectMenuBuilder()
+					.setCustomId('basicPerms')
+					.setPlaceholder('No basic permissions selected')
+					.setMinValues(1)
+					.setMaxValues(permSelectOption1.length)
+					.addOptions(permSelectOption1),
+			);
 
 		const permsSelectRow2 = new ActionRowBuilder()
-			.addComponents(permSelectMenu2);
-
-		const permsSelectRow3 = new ActionRowBuilder()
-			.addComponents(permSelectMenu3);
+			.addComponents(
+				new SelectMenuBuilder()
+					.setCustomId('voicePerms')
+					.setPlaceholder('No voice/admin permissions selected')
+					.setMinValues(1)
+					.setMaxValues(permSelectOption2.length)
+					.addOptions(permSelectOption2),
+			);
 
 		/*
 		const colorSelectRow = new ActionRowBuilder()
@@ -322,6 +306,7 @@ module.exports = {
 			)
 		*/
 
+
 		const completeButtonRow = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
@@ -330,77 +315,113 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger),
 			);
 
-		const message = await interaction.reply({ embeds: [roleCreateEmbed], components: [permsSelectRow1, permsSelectRow2, permsSelectRow3, completeButtonRow] });
+		const message = await interaction.reply({ embeds: [roleCreateEmbed], components: [permsSelectRow1, completeButtonRow] });
 		const collector = message.createMessageComponentCollector({ componentType: ComponentType.SelectMenu, time: 15000 });
-		let num;
 		collector.on('collect', async i => {
-			
-			if (i.customId === 'basicPerms') {
-				i.values.forEach(string => {
-					if (string === 'addreactionstomessages') {
-						permValue.push(PermissionsBitField.Flags.AddReactions);
-					}
-					else if (string === 'attachfiles') {
-						permValue.push(PermissionsBitField.Flags.AttachFiles);
-					}
-					else if (string === 'changetheirownnickname') {
-						permValue.push(PermissionsBitField.Flags.ChangeNickname);
-					}
-					else if (string === 'createinvitestotheserver') {
-						permValue.push(PermissionsBitField.Flags.CreateInstantInvite);
-					}
-					else if (string === 'createprivatethreads') {
-						permValue.push(PermissionsBitField.Flags.CreatePrivateThreads);
-					}
-					else if (string === 'createpublicthreads') {
-						permValue.push(PermissionsBitField.Flags.CreatePublicThreads);
-					}
-					else if (string === 'embedlinks') {
-						permValue.push(PermissionsBitField.Flags.EmbedLinks);
-					}
-					else if (string === 'managemessages') {
-						permValue.push(PermissionsBitField.Flags.ManageMessages);
-					}
-					else if (string === 'managethreads') {
-						permValue.push(PermissionsBitField.Flags.ManageThreads);
-					}
-					else if (string === 'mentioneveryone') {
-						permValue.push(PermissionsBitField.Flags.MentionEveryone);
-					}
-					else if (string === 'readmessagehistory') {
-						permValue.push(PermissionsBitField.Flags.ReadMessageHistory);
-					}
-					else if (string === 'sendmessages') {
-						permValue.push(PermissionsBitField.Flags.SendMessages);
-					}
-					else if (string === 'sendmessagesinthreads') {
-						permValue.push(PermissionsBitField.Flags.SendMessagesInThreads);
-					}
-					else if (string === 'sendttsmessages') {
-						permValue.push(PermissionsBitField.Flags.SendTTSMessages);
-					}
-					else if (string === 'useapplicationcommands') {
-						permValue.push(PermissionsBitField.Flags.UseApplicationCommands);
-					}
-					else if (string === 'useembeddedactivities') {
-						permValue.push(PermissionsBitField.Flags.UseEmbeddedActivities);
-					}
-					else if (string === 'useexternalemojis') {
-						permValue.push(PermissionsBitField.Flags.UseExternalEmojis);
-					}
-					else if (string === 'useexternalstickers') {
-						permValue.push(PermissionsBitField.Flags.UseExternalStickers);
-					}
-					else if (string === 'viewchannel') {
-						permValue.push(PermissionsBitField.Flags.ViewChannel);
-					}
-				});
-				permSelectMenu1.setDisabled(true);
-				num++;
-			}
-			else if (i.customId === 'voicePerms') {
+			i.values.forEach(string => {
+				if (string === 'addreactionstomessages') {
+					permValue.push(PermissionsBitField.Flags.AddReactions);
+				}
+				else if (string === 'attachfiles') {
+					permValue.push(PermissionsBitField.Flags.AttachFiles);
+				}
+				else if (string === 'changetheirownnickname') {
+					permValue.push(PermissionsBitField.Flags.ChangeNickname);
+				}
+				else if (string === 'createinvitestotheserver') {
+					permValue.push(PermissionsBitField.Flags.CreateInstantInvite);
+				}
+				else if (string === 'createprivatethreads') {
+					permValue.push(PermissionsBitField.Flags.CreatePrivateThreads);
+				}
+				else if (string === 'createpublicthreads') {
+					permValue.push(PermissionsBitField.Flags.CreatePublicThreads);
+				}
+				else if (string === 'embedlinks') {
+					permValue.push(PermissionsBitField.Flags.EmbedLinks);
+				}
+				else if (string === 'managemessages') {
+					permValue.push(PermissionsBitField.Flags.ManageMessages);
+				}
+				else if (string === 'managethreads') {
+					permValue.push(PermissionsBitField.Flags.ManageThreads);
+				}
+				else if (string === 'mentioneveryone') {
+					permValue.push(PermissionsBitField.Flags.MentionEveryone);
+				}
+				else if (string === 'readmessagehistory') {
+					permValue.push(PermissionsBitField.Flags.ReadMessageHistory);
+				}
+				else if (string === 'sendmessages') {
+					permValue.push(PermissionsBitField.Flags.SendMessages);
+				}
+				else if (string === 'sendmessagesinthreads') {
+					permValue.push(PermissionsBitField.Flags.SendMessagesInThreads);
+				}
+				else if (string === 'sendttsmessages') {
+					permValue.push(PermissionsBitField.Flags.SendTTSMessages);
+				}
+				else if (string === 'useapplicationcommands') {
+					permValue.push(PermissionsBitField.Flags.UseApplicationCommands);
+				}
+				else if (string === 'useembeddedactivities') {
+					permValue.push(PermissionsBitField.Flags.UseEmbeddedActivities);
+				}
+				else if (string === 'useexternalemojis') {
+					permValue.push(PermissionsBitField.Flags.UseExternalEmojis);
+				}
+				else if (string === 'useexternalstickers') {
+					permValue.push(PermissionsBitField.Flags.UseExternalStickers);
+				}
+				else if (string === 'viewchannel') {
+					permValue.push(PermissionsBitField.Flags.ViewChannel);
+				}
+			});
+
+			const message2 = await i.reply({ embeds: [roleCompletedEmbed2], components: [permsSelectRow2] });
+			const collect = message2.createMessageComponentCollector({ componentType: ComponentType.SelectMenu, time: 60000 });
+			collect.on('collect', async im => {
 				im.values.forEach(string2 => {
-					if (string2 === 'connecttovoicechannels') {
+					if (string2 === 'administrator') {
+						permValue.push(PermissionsBitField.Flags.Administrator);
+					}
+					else if (string2 === 'banningpermissions') {
+						permValue.push(PermissionsBitField.Flags.BanMembers);
+					}
+					else if (string2 === 'kickmembers') {
+						permValue.push(PermissionsBitField.Flags.KickMembers);
+					}
+					else if (string2 === 'managechannel') {
+						permValue.push(PermissionsBitField.Flags.ManageChannels);
+					}
+					else if (string2 === 'manageemojisandstickers') {
+						permValue.push(PermissionsBitField.Flags.ManageEmojisAndStickers);
+					}
+					else if (string2 === 'managenicknames') {
+						permValue.push(PermissionsBitField.Flags.ManageNicknames);
+					}
+					else if (string2 === 'manageroles') {
+						permValue.push(PermissionsBitField.Flags.ManageRoles);
+					}
+					else if (string2 === 'manageevents') {
+						permValue.push(PermissionsBitField.Flags.ManageEvents);
+					}
+					else if (string2 === 'manageguild') {
+						permValue.push(PermissionsBitField.Flags.ManageGuild);
+					}
+					else if (string2 === 'managewebhooks') {
+						permValue.push(PermissionsBitField.Flags.ManageWebhooks);
+					}
+					else if (string2 === 'moderatemembers') {
+						permValue.push(PermissionsBitField.Flags.ModerateMembers);
+					}
+					else if (string2 === 'viewauditlog') {
+						permValue.push(PermissionsBitField.Flags.ViewAuditLog);
+					}
+					else if (string2 === 'viewguildinsights') {
+						permValue.push(PermissionsBitField.Flags.ViewGuildInsights);
+					}
+					else if (string2 === 'connecttovoicechannels') {
 						permValue.push(PermissionsBitField.Flags.Connect);
 					}
 					else if (string2 === 'deafenmembers') {
@@ -428,60 +449,12 @@ module.exports = {
 						permValue.push(PermissionsBitField.Flags.UseVAD);
 					}
 				});
-				permSelectMenu2.setDisabled(true);
-				num++;
-			}
-			else if (i.customId === 'smPerms') {
-				i.values.forEach(string3 => {
-					if (string3 === 'administrator') {
-						permValue.push(PermissionsBitField.Flags.Administrator);
-					}
-					else if (string3 === 'banningpermissions') {
-						permValue.push(PermissionsBitField.Flags.BanMembers);
-					}
-					else if (string3 === 'kickmembers') {
-						permValue.push(PermissionsBitField.Flags.KickMembers);
-					}
-					else if (string3 === 'managechannel') {
-						permValue.push(PermissionsBitField.Flags.ManageChannels);
-					}
-					else if (string3 === 'manageemojisandstickers') {
-						permValue.push(PermissionsBitField.Flags.ManageEmojisAndStickers);
-					}
-					else if (string3 === 'managenicknames') {
-						permValue.push(PermissionsBitField.Flags.ManageNicknames);
-					}
-					else if (string3 === 'manageroles') {
-						permValue.push(PermissionsBitField.Flags.ManageRoles);
-					}
-					else if (string3 === 'manageevents') {
-						permValue.push(PermissionsBitField.Flags.ManageEvents);
-					}
-					else if (string3 === 'manageguild') {
-						permValue.push(PermissionsBitField.Flags.ManageGuild);
-					}
-					else if (string3 === 'managewebhooks') {
-						permValue.push(PermissionsBitField.Flags.ManageWebhooks);
-					}
-					else if (string3 === 'moderatemembers') {
-						permValue.push(PermissionsBitField.Flags.ModerateMembers);
-					}
-					else if (string3 === 'viewauditlog') {
-						permValue.push(PermissionsBitField.Flags.ViewAuditLog);
-					}
-					else if (string3 === 'viewguildinsights') {
-						permValue.push(PermissionsBitField.Flags.ViewGuildInsights);
-					}
+				im.guild.roles.create({ name: eName, permissions: permValue });
 
-				});
-				permSelectMenu3.setDisabled(true);
-				num++;
-			}
+				await im.followUp({ embeds: [roleCompletedEmbed], components: [], ephemeral: true });
 
-			if (num === 3) {
 				console.log(permValue.toString());
-			}
-			
+			});
 		});
 
 		const buttonCollector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
