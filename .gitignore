@@ -9,3 +9,4 @@ cpuprofiles
 debug.log
 *.cpuprofile
 commands/assets/db/db.sqlite
+.breakpoints
