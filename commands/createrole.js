@@ -297,169 +297,181 @@ module.exports = {
 					.setStyle(ButtonStyle.Danger),
 			);
 
-		const rolecomplete1 = new Promise((resolve, reject) => {
+		// eslint-disable-next-line no-undef
+		const rolecomplete1 = new Promise(async (resolve, reject) => {
 			const message = await interaction.reply({ embeds: [roleCreateEmbed], components: [permsSelectRow1, completeButtonRow] });
 			const collector = message.createMessageComponentCollector({ componentType: ComponentType.SelectMenu, time: 15000 });
-			const timeout = setTimeout(() => {
-				collector.end();
-				reject(i);
-			}, 15000)
-			while (timeout) {
-				collector.on('collect', async i => {
-					i.values.forEach(string => {
-						if (string === 'addreactionstomessages') {
-							permValue.push(PermissionsBitField.Flags.AddReactions);
-						}
-						else if (string === 'administrator') {
-							permValue.push(PermissionsBitField.Flags.Administrator);
-						}
-						else if (string === 'attachfiles') {
-							permValue.push(PermissionsBitField.Flags.AttachFiles);
-						}
-						else if (string === 'banningpermissions') {
-							permValue.push(PermissionsBitField.Flags.BanMembers);
-						}
-						else if (string === 'changetheirownnickname') {
-							permValue.push(PermissionsBitField.Flags.ChangeNickname);
-						}
-						else if (string === 'connecttovoicechannels') {
-							permValue.push(PermissionsBitField.Flags.Connect);
-						}
-						else if (string === 'createinvitestotheserver') {
-							permValue.push(PermissionsBitField.Flags.CreateInstantInvite);
-						}
-						else if (string === 'createprivatethreads') {
-							permValue.push(PermissionsBitField.Flags.CreatePrivateThreads);
-						}
-						else if (string === 'createpublicthreads') {
-							permValue.push(PermissionsBitField.Flags.CreatePublicThreads);
-						}
-						else if (string === 'deafenmembers') {
-							permValue.push(PermissionsBitField.Flags.DeafenMembers);
-						}
-						else if (string === 'embedlinks') {
-							permValue.push(PermissionsBitField.Flags.EmbedLinks);
-						}
-						else if (string === 'kickmembers') {
-							permValue.push(PermissionsBitField.Flags.KickMembers);
-						}
-						else if (string === 'managechannel') {
-							permValue.push(PermissionsBitField.Flags.ManageChannels);
-						}
-						else if (string === 'manageemojisandstickers') {
-							permValue.push(PermissionsBitField.Flags.ManageEmojisAndStickers);
-						}
-						else if (string === 'manageevents') {
-							permValue.push(PermissionsBitField.Flags.ManageEvents);
-						}
-						else if (string === 'managemessages') {
-							permValue.push(PermissionsBitField.Flags.ManageMessages);
-						}
-						else if (string === 'managenicknames') {
-							permValue.push(PermissionsBitField.Flags.ManageNicknames);
-						}
-						else if (string === 'manageroles') {
-							permValue.push(PermissionsBitField.Flags.ManageRoles);
-						}
-						else if (string === 'manageguild') {
-							permValue.push(PermissionsBitField.Flags.ManageGuild);
-						}
-					});
-					resolve(i);
+			const buttonCollector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
+			collector.on('collect', async i => {
+				i.values.forEach(string => {
+					if (string === 'addreactionstomessages') {
+						permValue.push(PermissionsBitField.Flags.AddReactions);
+					}
+					else if (string === 'administrator') {
+						permValue.push(PermissionsBitField.Flags.Administrator);
+					}
+					else if (string === 'attachfiles') {
+						permValue.push(PermissionsBitField.Flags.AttachFiles);
+					}
+					else if (string === 'banningpermissions') {
+						permValue.push(PermissionsBitField.Flags.BanMembers);
+					}
+					else if (string === 'changetheirownnickname') {
+						permValue.push(PermissionsBitField.Flags.ChangeNickname);
+					}
+					else if (string === 'connecttovoicechannels') {
+						permValue.push(PermissionsBitField.Flags.Connect);
+					}
+					else if (string === 'createinvitestotheserver') {
+						permValue.push(PermissionsBitField.Flags.CreateInstantInvite);
+					}
+					else if (string === 'createprivatethreads') {
+						permValue.push(PermissionsBitField.Flags.CreatePrivateThreads);
+					}
+					else if (string === 'createpublicthreads') {
+						permValue.push(PermissionsBitField.Flags.CreatePublicThreads);
+					}
+					else if (string === 'deafenmembers') {
+						permValue.push(PermissionsBitField.Flags.DeafenMembers);
+					}
+					else if (string === 'embedlinks') {
+						permValue.push(PermissionsBitField.Flags.EmbedLinks);
+					}
+					else if (string === 'kickmembers') {
+						permValue.push(PermissionsBitField.Flags.KickMembers);
+					}
+					else if (string === 'managechannel') {
+						permValue.push(PermissionsBitField.Flags.ManageChannels);
+					}
+					else if (string === 'manageemojisandstickers') {
+						permValue.push(PermissionsBitField.Flags.ManageEmojisAndStickers);
+					}
+					else if (string === 'manageevents') {
+						permValue.push(PermissionsBitField.Flags.ManageEvents);
+					}
+					else if (string === 'managemessages') {
+						permValue.push(PermissionsBitField.Flags.ManageMessages);
+					}
+					else if (string === 'managenicknames') {
+						permValue.push(PermissionsBitField.Flags.ManageNicknames);
+					}
+					else if (string === 'manageroles') {
+						permValue.push(PermissionsBitField.Flags.ManageRoles);
+					}
+					else if (string === 'manageguild') {
+						permValue.push(PermissionsBitField.Flags.ManageGuild);
+					}
 				});
-			}
-
-		})
-
-		rolecomplete1;
-
-
-		const message2 = await i.reply({ embeds: [roleCompletedEmbed2], components: [permsSelectRow2] });
-		const collect = message2.createMessageComponentCollector({ componentType: ComponentType.SelectMenu, time: 60000 });
-		collect.on('collect', async im => {
-			im.deferReply();
-			im.values.forEach(string => {
-				if (string === 'managethreads') {
-					permValue.push(PermissionsBitField.Flags.ManageThreads);
-				}
-				else if (string === 'managewebhooks') {
-					permValue.push(PermissionsBitField.Flags.ManageWebhooks);
-				}
-				else if (string === 'mentioneveryone') {
-					permValue.push(PermissionsBitField.Flags.MentionEveryone);
-				}
-				else if (string === 'moderatemembers') {
-					permValue.push(PermissionsBitField.Flags.ModerateMembers);
-				}
-				else if (string === 'movemembers') {
-					permValue.push(PermissionsBitField.Flags.MoveMembers);
-				}
-				else if (string === 'mutemembers') {
-					permValue.push(PermissionsBitField.Flags.MuteMembers);
-				}
-				else if (string === 'priorityspeaker') {
-					permValue.push(PermissionsBitField.Flags.PrioritySpeaker);
-				}
-				else if (string === 'readmessagehistory') {
-					permValue.push(PermissionsBitField.Flags.ReadMessageHistory);
-				}
-				else if (string === 'requesttospeak') {
-					permValue.push(PermissionsBitField.Flags.RequestToSpeak);
-				}
-				else if (string === 'sendmessages') {
-					permValue.push(PermissionsBitField.Flags.SendMessages);
-				}
-				else if (string === 'sendmessagesinthreads') {
-					permValue.push(PermissionsBitField.Flags.SendMessagesInThreads);
-				}
-				else if (string === 'sendttsmessages') {
-					permValue.push(PermissionsBitField.Flags.SendTTSMessages);
-				}
-				else if (string === 'speak') {
-					permValue.push(PermissionsBitField.Flags.Speak);
-				}
-				else if (string === 'stream') {
-					permValue.push(PermissionsBitField.Flags.Stream);
-				}
-				else if (string === 'useapplicationcommands') {
-					permValue.push(PermissionsBitField.Flags.UseApplicationCommands);
-				}
-				else if (string === 'useembeddedactivities') {
-					permValue.push(PermissionsBitField.Flags.UseEmbeddedActivities);
-				}
-				else if (string === 'useexternalemojis') {
-					permValue.push(PermissionsBitField.Flags.UseExternalEmojis);
-				}
-				else if (string === 'useexternalstickers') {
-					permValue.push(PermissionsBitField.Flags.UseExternalStickers);
-				}
-				else if (string === 'usevad') {
-					permValue.push(PermissionsBitField.Flags.UseVAD);
-				}
-				else if (string === 'viewauditlog') {
-					permValue.push(PermissionsBitField.Flags.ViewAuditLog);
-				}
-				else if (string === 'viewchannel') {
-					permValue.push(PermissionsBitField.Flags.ViewChannel);
-				}
-				else if (string === 'viewguildinsights') {
-					permValue.push(PermissionsBitField.Flags.ViewGuildInsights);
-				}
-
+				resolve(permValue);
 			});
-			im.guild.roles.create({ name: eName, permissions: permValue });
 
-			await im.followUp({ embeds: [roleCompletedEmbed], components: [], ephemeral: true });
+			collector.on('ignore', async () => {
+				interaction.update({ embeds: [outOfTimeEmbed], components: [], ephemeral: true });
+				reject();
+			});
 
-			console.log(permValue.toString());
+			buttonCollector.on('collect', async i => {
+				if (i.customId === 'cancel') {
+					await i.update({ embeds: [endedEmbed], components: [] });
+					return 0;
+				}
+			});
 		});
 
-		const buttonCollector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
-		buttonCollector.on('collect', async i => {
-			if (i.customId === 'cancel') {
-				await i.update({ embeds: [endedEmbed], components: [] });
-				return 0;
-			}
+		// eslint-disable-next-line no-undef, no-async-promise-executor
+		const rolecomplete2 = new Promise(async (resolve, reject) => {
+			const permVal1 = await rolecomplete1
+				.then(permVal => {
+					return permVal;
+				});
+			const message = await i.reply({ embeds: [roleCompletedEmbed2], components: [permsSelectRow2] });
+			const collector = message.createMessageComponentCollector({ componentType: ComponentType.SelectMenu, time: 60000 });
+			collector.on('collect', async i => {
+				i.deferReply();
+				i.values.forEach(string => {
+					if (string === 'managethreads') {
+						permValue.push(PermissionsBitField.Flags.ManageThreads);
+					}
+					else if (string === 'managewebhooks') {
+						permValue.push(PermissionsBitField.Flags.ManageWebhooks);
+					}
+					else if (string === 'mentioneveryone') {
+						permValue.push(PermissionsBitField.Flags.MentionEveryone);
+					}
+					else if (string === 'moderatemembers') {
+						permValue.push(PermissionsBitField.Flags.ModerateMembers);
+					}
+					else if (string === 'movemembers') {
+						permValue.push(PermissionsBitField.Flags.MoveMembers);
+					}
+					else if (string === 'mutemembers') {
+						permValue.push(PermissionsBitField.Flags.MuteMembers);
+					}
+					else if (string === 'priorityspeaker') {
+						permValue.push(PermissionsBitField.Flags.PrioritySpeaker);
+					}
+					else if (string === 'readmessagehistory') {
+						permValue.push(PermissionsBitField.Flags.ReadMessageHistory);
+					}
+					else if (string === 'requesttospeak') {
+						permValue.push(PermissionsBitField.Flags.RequestToSpeak);
+					}
+					else if (string === 'sendmessages') {
+						permValue.push(PermissionsBitField.Flags.SendMessages);
+					}
+					else if (string === 'sendmessagesinthreads') {
+						permValue.push(PermissionsBitField.Flags.SendMessagesInThreads);
+					}
+					else if (string === 'sendttsmessages') {
+						permValue.push(PermissionsBitField.Flags.SendTTSMessages);
+					}
+					else if (string === 'speak') {
+						permValue.push(PermissionsBitField.Flags.Speak);
+					}
+					else if (string === 'stream') {
+						permValue.push(PermissionsBitField.Flags.Stream);
+					}
+					else if (string === 'useapplicationcommands') {
+						permValue.push(PermissionsBitField.Flags.UseApplicationCommands);
+					}
+					else if (string === 'useembeddedactivities') {
+						permValue.push(PermissionsBitField.Flags.UseEmbeddedActivities);
+					}
+					else if (string === 'useexternalemojis') {
+						permValue.push(PermissionsBitField.Flags.UseExternalEmojis);
+					}
+					else if (string === 'useexternalstickers') {
+						permValue.push(PermissionsBitField.Flags.UseExternalStickers);
+					}
+					else if (string === 'usevad') {
+						permValue.push(PermissionsBitField.Flags.UseVAD);
+					}
+					else if (string === 'viewauditlog') {
+						permValue.push(PermissionsBitField.Flags.ViewAuditLog);
+					}
+					else if (string === 'viewchannel') {
+						permValue.push(PermissionsBitField.Flags.ViewChannel);
+					}
+					else if (string === 'viewguildinsights') {
+						permValue.push(PermissionsBitField.Flags.ViewGuildInsights);
+					}
+
+				});
+
+				// i.guild.roles.create({ name: eName, permissions: permValue });
+
+				
+				resolve(permValue);
+			});
+
+			collector.on('ignore', async () => {
+				await interaction.update({ embeds: [outOfTimeEmbed], components: [], ephemeral: true });
+				reject();
+			});
+		});
+
+		await rolecomplete2.then(permVal => {
+			console.log(permVal.toString());
 		});
 
 		client.on('shardError', error => {
