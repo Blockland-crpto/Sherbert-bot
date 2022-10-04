@@ -234,6 +234,7 @@ module.exports = {
 				return 0;
 			}
 			*/
+			
 		});
 
 		client.on('shardError', error => {

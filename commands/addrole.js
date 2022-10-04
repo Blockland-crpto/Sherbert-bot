@@ -25,6 +25,7 @@ module.exports = {
 		const targetRoles = interaction.options.getRole('role');
 		const reason = interaction.options.getString('reason');
 		const invokerM = interaction.member;
+		
 		const adminGiveConfirmEmbed = new EmbedBuilder()
 			.setColor(embedColor)
 			.setTitle('confirmation')
@@ -76,8 +77,7 @@ module.exports = {
 
 		if (targetRoles.permissions.has(PermissionFlagsBits.Administrator)) {
 			if (!invokerM.permissions.has(PermissionFlagsBits.Administrator)) {
-				await interaction.reply({ content: 'Were sorry, but you do not have the permissions to give this role to anyone', ephemeral: true });
-				return 1;
+				return await interaction.reply({ content: 'Were sorry, but you do not have the permissions to give this role to anyone', ephemeral: true });
 			}
 			const message = await interaction.reply({ embeds: [adminGiveConfirmEmbed], components: [confirmRow], ephemeral: true });
 			const collector = message.createMessageComponentCollector({ componentType: ComponentType.Button, time: 15000 });
